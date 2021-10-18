@@ -1,16 +1,13 @@
-# flutter_application_photo_tag
+#アプリ名:photo_tag
+
+授業中に作ったサンプルアプリ
 
 A new Flutter project.
 
-## Getting Started
+## なぜつくるのか
 
-This project is a starting point for a Flutter application.
+iosの｢写真｣アプリで不便な点があるので、そこの部分を改良したいから。
 
-A few resources to get you started if this is your first Flutter project:
+## ユーザーはこのアプリで何ができるのか？
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+タグをつけることによって、写真の管理がしやすくなる。
