@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/Command.dart';
-import 'package:flutter_application_photo_tag/view/photoAccess/Photo_Home.dart';
+import 'package:flutter_application_photo_tag/command.dart';
+import 'package:flutter_application_photo_tag/view/photoAccess/%20photo_home.dart';
+import 'package:flutter_application_photo_tag/view/photoAccess/serect_photo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'Command.dart';
+import 'command.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -47,9 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              Command.tagAdd(context);
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (context) => Select()));
+              // Command.tagAdd(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (
+                    context,
+                  ) =>
+                          const SerectPotho()));
             },
           ),
         ],
@@ -81,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         currentIndex: _navIndex,
       ),
-      body: Photo_Home(),
+      body: PhotoHome(),
     );
   }
 }

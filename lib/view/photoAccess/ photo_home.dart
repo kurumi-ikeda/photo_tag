@@ -1,16 +1,16 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/view/photoAccess/PhotoAcquisition.dart';
+import 'package:flutter_application_photo_tag/view/photoAccess/photo_acquisition.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'Image_Screen.dart';
-import 'PhotoAcquisition.dart';
+import 'image_screen.dart';
+import 'photo_acquisition.dart';
 
-class Photo_Home extends StatefulWidget {
+class PhotoHome extends StatefulWidget {
   @override
-  _Photo_HomeState createState() => _Photo_HomeState();
+  _PhotoHomeState createState() => _PhotoHomeState();
 }
 
-class _Photo_HomeState extends State<Photo_Home> {
+class _PhotoHomeState extends State<PhotoHome> {
   //ここに選択したものが追加される
   var selectedList = <AssetEntity>[];
   List<AssetEntity> assetList = [];
