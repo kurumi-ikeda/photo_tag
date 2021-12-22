@@ -2,7 +2,6 @@
 // ignore: file_names
 import 'dart:typed_data';
 import 'package:photo_manager/photo_manager.dart';
-import 'image_screen.dart';
 
 class PhotoAcquisition {
   //写真を全部取得する

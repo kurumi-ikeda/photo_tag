@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'view/photoAccess/photo_acquisition.dart';
 
 class TagAdd extends StatefulWidget {
   const TagAdd({Key? key}) : super(key: key);
