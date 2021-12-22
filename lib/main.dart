@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/command.dart';
-import 'package:flutter_application_photo_tag/view/photoAccess/%20photo_home.dart';
-import 'package:flutter_application_photo_tag/view/photoAccess/serect_photo.dart';
+import 'package:flutter_application_photo_tag/photoAccess/serect_photo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'command.dart';
+
+import 'home/ photo_home.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();

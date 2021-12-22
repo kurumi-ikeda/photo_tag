@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/view/tag_feature/tag_create.dart';
+
+import 'package:flutter_application_photo_tag/tag_feature/tag_create.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class SerectPotho extends StatefulWidget {
@@ -64,7 +65,13 @@ class _SerectPothoState extends State<SerectPotho> {
     if (tagName == "") {
       return;
     } else {
-      TagCreate(selectedList: selectedList, tagName: tagName);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (
+            context,
+          ) =>
+                  TagCreate(selectedList: selectedList, tagName: tagName)));
     }
   }
 
@@ -79,16 +86,15 @@ class _SerectPothoState extends State<SerectPotho> {
               final result = await showDialog<String>(
                 context: context,
                 builder: (contex) {
-                  //ここから下をInputDialogに置き換える
                   return InputDialog();
                 },
               );
               print(result);
-              if (result == null && this.selectedList == null) {
+              if (result == null || this.selectedList == null) {
                 return;
               }
 
-              // TagCreate(this.selectedList,result);
+              makeTag(this.selectedList, result);
             },
             child: Text('タグを作成'),
           )
