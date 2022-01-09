@@ -1,12 +1,10 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
-import 'Image_Screen.dart';
+import 'image_screen.dart';
 // import 'package:flutter_application_photo_tag/view/photoAccess/photo_acquisition.dart';
 
 import 'package:photo_manager/photo_manager.dart';
-
-import '../photoAccess/photo_acquisition.dart';
 
 class PhotoHome extends StatefulWidget {
   @override
@@ -47,14 +45,14 @@ class _PhotoHomeState extends State<PhotoHome> {
       //アルバムを最初に取得する
       List<AssetPathEntity> albums =
           await PhotoManager.getAssetPathList(onlyAll: true);
-      print(albums);
+      // print(albums);
       assetList = await albums[0].getAssetListPaged(currentPage, 60);
       //今まで取りにいっていたものを最初に取りに行く
       imageList = await Future.wait(
         assetList.map((e) => e.thumbDataWithSize(200, 200)).toList(),
       );
 
-      print(assetList);
+      // print(assetList);
     } else {
       //
       PhotoManager.openSetting();
@@ -84,7 +82,6 @@ class _PhotoHomeState extends State<PhotoHome> {
                 context,
                 MaterialPageRoute(
                   builder: (_) => ImageScreen(imageFile: asset.file),
-                  // TODO: navigate to Image/Video screen
                 ),
               );
             },
@@ -100,7 +97,7 @@ class _PhotoHomeState extends State<PhotoHome> {
 
                 //if文でビデオだったら、ビデオのアイコンを追加する
                 if (asset.type == AssetType.video)
-                  Align(
+                  const Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
                       padding: EdgeInsets.only(right: 5, bottom: 5),
