@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/serect_photo/serect_photo.dart';
+import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'hive_sample.dart';
@@ -10,7 +11,9 @@ import 'search/ search_view.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
-  runApp(MyApp());
+  Hive.registerAdapter(TagAdapter());
+  await Hive.openBox<Tag>('tags');
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
