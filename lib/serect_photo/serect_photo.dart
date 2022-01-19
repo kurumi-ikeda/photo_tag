@@ -16,7 +16,7 @@ class _SerectPothoState extends State<SerectPotho> {
   late String tagName;
   //ここに選択したものが追加される
   var selectedList = <AssetEntity>[];
-
+  //端末から写真を取得するためのList
   List<AssetEntity> assetList = [];
   List<Uint8List?> imageList = [];
 
@@ -52,16 +52,14 @@ class _SerectPothoState extends State<SerectPotho> {
       imageList = await Future.wait(
         assetList.map((e) => e.thumbDataWithSize(200, 200)).toList(),
       );
-
-      print(assetList);
     } else {
       PhotoManager.openSetting();
     }
     setState(() {});
   }
 
-  //タグの名前と、選択した写真をTagCreateクラスに渡すメソッド?
-  makeTag(List<AssetEntity> selectedList, String tagName) {
+  //タグの名前と、選択した写真をTagCreateクラスに渡すメソッド
+  tagCreate(List<AssetEntity> selectedList, String tagName) {
     if (tagName == "") {
       return;
     } else {
@@ -94,7 +92,7 @@ class _SerectPothoState extends State<SerectPotho> {
                 return;
               }
 
-              makeTag(this.selectedList, result);
+              tagCreate(this.selectedList, result);
             },
             child: Text('タグを作成'),
           )
@@ -122,7 +120,6 @@ class _SerectPothoState extends State<SerectPotho> {
                 } else {
                   selectedList.add(asset);
                 }
-
                 setState(() {});
               },
               child: Stack(
@@ -133,8 +130,6 @@ class _SerectPothoState extends State<SerectPotho> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  //
-
                   //if文でビデオだったら、ビデオのアイコンを追加する
                   if (asset.type == AssetType.video)
                     Align(
@@ -194,7 +189,6 @@ class _InputDialogState extends State<InputDialog> {
         enabled: true,
         maxLength: 15,
       ),
-
       actions: [
         FlatButton(
           child: Text('キャンセル'),
@@ -207,40 +201,6 @@ class _InputDialogState extends State<InputDialog> {
               Navigator.of(context).pop(text);
             })
       ],
-      // actions: [
-      //   TextButton(
-      //     onPressed: () {
-      //       final text = controller.text;
-      //       print('入力された値: $text');
-
-      //       // 値を返す。
-      //       Navigator.of(context).pop(text);
-      //     },
-      //     child: const Text('保存'),
-      //   )
-      // ],
     );
   }
 }
-
-// AlertDialog(
-//                     title: Text('タグ追加'),
-//                     content: TextFormField(),
-//                     actions: <Widget>[
-//                       FlatButton(
-//                         child: Text('キャンセル'),
-//                         onPressed: () => Navigator.of(context).pop(0),
-//                       ),
-//                       FlatButton(
-//                         child: Text('保存'),
-//                         onPressed: () {
-//                           Navigator.push(
-//                               context,
-//                               MaterialPageRoute(
-//                                   //ページ遷移はできたが、 tag_cleateへの画面遷移はまだできていない。
-//                                   builder: (context) => const SerectPotho()));
-//                         },
-//                         // onPressed: () => Navigator.of(context).pop(1),
-//                       ),
-//                     ],
-//                     },

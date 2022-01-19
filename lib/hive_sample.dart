@@ -15,16 +15,16 @@ class _HiveSampleState extends State<HiveSample> {
 
   // 初期化が完了したかどうかをはかる
   //↑ボックスを開いたらtrueになる
-  bool IsInittlized = false;
+  bool isInittlized = false;
 
   // final memoBox = Hive.box('memo');
 
   Future<void> init() async {
     //ボックスをひらく
     await Hive.openBox('memo');
-    await Hive.openBox('memo2');
+
     //開いたので trueになる
-    IsInittlized = true;
+    isInittlized = true;
     //再描画
     setState(() {});
   }
@@ -35,23 +35,6 @@ class _HiveSampleState extends State<HiveSample> {
     super.initState();
     //initメソッドをよびだして、Boxを開く
     init();
-
-    setState(() {});
-  }
-
-  Future<void> addMemo2() async {
-    // final memoBox = Hive.box('memo');
-    final text = controller.text;
-    //文字が空か否かを把握する
-    if (text.isEmpty) {
-      //空文字なら 処理を返す
-      return;
-    }
-    //Boxにtextを保存
-    await Hive.box('memo2').add(text);
-
-    // コントローラーを初期化
-    controller.clear();
 
     setState(() {});
   }
@@ -85,7 +68,7 @@ class _HiveSampleState extends State<HiveSample> {
       ),
       body: SingleChildScrollView(
         //三項演算子でtureならColumnの内容を表示、falseならCenterの中身を表示させる
-        child: IsInittlized
+        child: isInittlized
             ? Column(
                 children: [
                   Padding(
