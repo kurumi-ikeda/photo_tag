@@ -5,10 +5,10 @@ part 'tag.g.dart';
 
 @HiveType(typeId: 1)
 class Tag {
-  Tag({required this.selectedList, required this.tagName});
+  Tag({required this.photoIdList, required this.tagName});
   @HiveField(0)
   late String tagName;
 
   @HiveField(1)
-  late List<AssetEntity> selectedList;
+  late List<String> photoIdList;
 }

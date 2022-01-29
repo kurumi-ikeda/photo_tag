@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_photo_tag/tag_feature/tag_create.dart';
+
 import 'package:photo_manager/photo_manager.dart';
 
 class SerectPotho extends StatefulWidget {
@@ -60,7 +61,8 @@ class _SerectPothoState extends State<SerectPotho> {
 
   //タグの名前と、選択した写真をTagCreateクラスに渡すメソッド
   tagCreate(List<AssetEntity> selectedList, String tagName) {
-    if (tagName == "") {
+    // print("セレクトリスト  ${selectedList}");
+    if (tagName == "" || selectedList == "") {
       return;
     } else {
       Navigator.push(

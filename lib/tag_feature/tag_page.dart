@@ -10,7 +10,6 @@ class TagPage extends StatefulWidget {
 }
 
 class _TagPageState extends State<TagPage> {
-  final List<Tag> tags = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold();

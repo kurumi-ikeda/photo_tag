@@ -8,46 +8,47 @@ import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 /*
-作るべきメソッド
-tagnameの名前を替えられるメソッド(rename)
-selectedListの中身を変更できるメソッド(rename)
+テスト用widget
+
+idからAssetEntityを作る
 
 */
 
-class TagCreate extends StatefulWidget {
+class TestTagCreate extends StatefulWidget {
   final List<AssetEntity> selectedList;
   final String tagName;
-  const TagCreate({Key? key, required this.selectedList, required this.tagName})
+  const TestTagCreate(
+      {Key? key, required this.selectedList, required this.tagName})
       : super(key: key);
 
   @override
-  _TagCreateState createState() => _TagCreateState();
+  _TestTagCreateState createState() => _TestTagCreateState();
 }
 
-class _TagCreateState extends State<TagCreate> {
+class _TestTagCreateState extends State<TestTagCreate> {
   List<Uint8List?> imageList = [];
+  List<AssetEntity> testList = [];
+
+  addListAsset() async {
+    var ids = [
+      '6CA12454-6A3D-41BF-97D4-226A88AB205B/L0/001',
+      '9C474BCB-9C3F-49E9-A1D2-0DBEFD323B8E/L0/001'
+    ];
+    var createAssetEntity =
+        await AssetEntity.fromId('6CA12454-6A3D-41BF-97D4-226A88AB205B/L0/001');
+
+    testList.add(createAssetEntity!);
+  }
+
   int currentPage = 0;
   late int lastPage;
 
   @override
   void initState() {
     super.initState();
-    addTag();
+    // addTag();
 
     imageFormat();
-  }
-
-  Future addTag() async {
-    final box = Boxes.getTags();
-
-    Tag tag;
-    final photoIdList = widget.selectedList.map((e) => e.id).toList();
-    tag = Tag(photoIdList: photoIdList, tagName: widget.tagName);
-    await box.add(tag);
-    for (var tag in box.values.toList()) {
-      print('tag name: ${tag.tagName}');
-      print('photoIdList: ${tag.photoIdList}');
-    }
   }
 
   // コンストラクタで受け取った変数をwidgetで表示できる形にする(多分)

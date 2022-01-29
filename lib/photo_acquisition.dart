@@ -3,7 +3,7 @@
 import 'dart:typed_data';
 import 'package:photo_manager/photo_manager.dart';
 
-//使ってなファイル
+//使ってないファイル
 class PhotoAcquisition {
   //写真を全部取得する
   static Future<List<AssetPathEntity>?> getPhotoAll() async {
