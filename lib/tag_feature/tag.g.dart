@@ -17,7 +17,7 @@ class TagAdapter extends TypeAdapter<Tag> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Tag(
-      selectedList: (fields[1] as List).cast<AssetEntity>(),
+      photoIdList: (fields[1] as List).cast<String>(),
       tagName: fields[0] as String,
     );
   }
@@ -29,7 +29,7 @@ class TagAdapter extends TypeAdapter<Tag> {
       ..writeByte(0)
       ..write(obj.tagName)
       ..writeByte(1)
-      ..write(obj.selectedList);
+      ..write(obj.photoIdList);
   }
 
   @override

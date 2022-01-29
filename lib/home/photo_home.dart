@@ -18,9 +18,7 @@ class _PhotoHomeState extends State<PhotoHome> {
 
   List<AssetEntity> assetList = [];
   List<Uint8List?> imageList = [];
-  // List<AssetPathEntity> albums = [];
 
-  // final selectedImageList = <AssetPathEntity>[];
   int currentPage = 0;
   late int lastPage;
 
