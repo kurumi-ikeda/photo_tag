@@ -1,14 +1,16 @@
 import 'package:hive/hive.dart';
-import 'package:photo_manager/photo_manager.dart';
 
 part 'tag.g.dart';
 
 @HiveType(typeId: 1)
 class Tag {
-  Tag({required this.photoIdList, required this.tagName});
+  Tag({required this.key, required this.photoIdList, required this.tagName});
   @HiveField(0)
-  late String tagName;
+  late String key;
 
   @HiveField(1)
+  late String tagName;
+
+  @HiveField(2)
   late List<String> photoIdList;
 }

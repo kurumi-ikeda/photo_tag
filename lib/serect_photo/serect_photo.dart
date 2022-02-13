@@ -47,7 +47,7 @@ class _SerectPothoState extends State<SerectPotho> {
       //アルバムを最初に取得する
       List<AssetPathEntity> albums =
           await PhotoManager.getAssetPathList(onlyAll: true);
-      print(albums);
+      // print(albums);
       assetList = await albums[0].getAssetListPaged(currentPage, 60);
       //今まで取りにいっていたものを最初に取りに行く
       imageList = await Future.wait(
@@ -62,16 +62,17 @@ class _SerectPothoState extends State<SerectPotho> {
   //タグの名前と、選択した写真をTagCreateクラスに渡すメソッド
   tagCreate(List<AssetEntity> selectedList, String tagName) {
     // print("セレクトリスト  ${selectedList}");
-    if (tagName == "" || selectedList == "") {
+    if (tagName == "" || selectedList.isEmpty) {
       return;
     } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (
-            context,
-          ) =>
-                  TagCreate(selectedList: selectedList, tagName: tagName)));
+      TagCreate().saveTag(selectedList, tagName);
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (
+      //       context,
+      //     ) =>
+      //             TagCreate(selectedList: selectedList, tagName: tagName)));
     }
   }
 
@@ -86,17 +87,17 @@ class _SerectPothoState extends State<SerectPotho> {
               final result = await showDialog<String>(
                 context: context,
                 builder: (contex) {
-                  return InputDialog();
+                  return const InputDialog();
                 },
               );
-              print(result);
-              if (result == null || this.selectedList == null) {
+              // print(result);
+              if (result == null || selectedList.isEmpty) {
                 return;
               }
 
-              tagCreate(this.selectedList, result);
+              tagCreate(selectedList, result);
             },
-            child: Text('タグを作成'),
+            child: const Text('タグを作成'),
           )
         ],
       ),
@@ -134,7 +135,7 @@ class _SerectPothoState extends State<SerectPotho> {
                   ),
                   //if文でビデオだったら、ビデオのアイコンを追加する
                   if (asset.type == AssetType.video)
-                    Align(
+                    const Align(
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         padding: EdgeInsets.only(right: 5, bottom: 5),
@@ -185,19 +186,19 @@ class _InputDialogState extends State<InputDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('タグ追加'),
+      title: const Text('タグ追加'),
       content: TextFormField(
         controller: controller,
         enabled: true,
         maxLength: 15,
       ),
       actions: [
-        FlatButton(
-          child: Text('キャンセル'),
+        TextButton(
+          child: const Text('キャンセル'),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        FlatButton(
-            child: Text("保存"),
+        TextButton(
+            child: const Text("保存"),
             onPressed: () {
               final text = controller.text;
               Navigator.of(context).pop(text);
