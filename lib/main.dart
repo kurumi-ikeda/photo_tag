@@ -4,11 +4,9 @@ import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'hive_sample.dart';
 import 'home/photo_home.dart';
 
-import 'photo_library_view.dart';
-import 'search/ search_view.dart';
+import 'search/search_view.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -45,14 +43,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _navIndex = 0;
-  // var _label = '';
-  var _titles = ['insert_photo', 'photo_library', 'search'];
 
-  var _navWiget = [
-    PhotoHome(),
-    TagLibraryView(),
+  final _navWiget = [
+    const PhotoHome(),
+    const TagLibraryView(),
     // PhotoLibraryView(),
-    SearchView(),
+    const SearchView(),
   ];
 
   @override
@@ -62,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
               // Command.tagAdd(context);
               Navigator.push(
@@ -77,35 +73,32 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.insert_photo),
-            title: Text('insert_photo'),
+            label: 'insert_photo',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.photo_library,
             ),
-            title: Text('photo_library'),
+            label: 'photo_library',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            title: Text('search'),
+            label: 'search',
           ),
         ],
         onTap: (int index) {
           setState(
             () {
               _navIndex = index;
-              // _label = _titles[index];
             },
           );
         },
         currentIndex: _navIndex,
       ),
       body: _navWiget.elementAt(_navIndex),
-
-      // body: PhotoHome(),
     );
   }
 }

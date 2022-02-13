@@ -17,18 +17,21 @@ class TagAdapter extends TypeAdapter<Tag> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Tag(
-      photoIdList: (fields[1] as List).cast<String>(),
-      tagName: fields[0] as String,
+      key: fields[0] as String,
+      photoIdList: (fields[2] as List).cast<String>(),
+      tagName: fields[1] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Tag obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.tagName)
+      ..write(obj.key)
       ..writeByte(1)
+      ..write(obj.tagName)
+      ..writeByte(2)
       ..write(obj.photoIdList);
   }
 

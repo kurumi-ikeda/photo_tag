@@ -45,12 +45,12 @@ class _PhotoHomeState extends State<PhotoHome> {
       List<AssetPathEntity> albums =
           await PhotoManager.getAssetPathList(onlyAll: true);
       assetList = await albums[0].getAssetListPaged(currentPage, 60);
-      print("${assetList.length} aaa ${assetList}, ${assetList.length}");
+      // print("${assetList.length} aaa ${assetList}, ${assetList.length}");
       //今まで取りにいっていたものを最初に取りに行く
       imageList = await Future.wait(
         assetList.map((e) => e.thumbDataWithSize(200, 200)).toList(),
       );
-      print(imageList);
+      // print(imageList);
 
       // print(assetList);
     } else {
