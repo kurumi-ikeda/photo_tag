@@ -66,13 +66,6 @@ class _SerectPothoState extends State<SerectPotho> {
       return;
     } else {
       TagCreate().saveTag(selectedList, tagName);
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (
-      //       context,
-      //     ) =>
-      //             TagCreate(selectedList: selectedList, tagName: tagName)));
     }
   }
 

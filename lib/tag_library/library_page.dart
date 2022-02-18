@@ -82,24 +82,32 @@ class TagWidget extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: Column(
             children: [
-              Expanded(
-                child: FutureBuilder(
-                  future: thumbnailCreation(tag),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<Uint8List?> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Container(
-                        constraints: const BoxConstraints.expand(),
-                        child: Image.memory(
-                          snapshot.data!,
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    }
-                    return Text('${snapshot.data}');
-                  },
-                ),
-              ),
+              tag.photoIdList.isNotEmpty
+                  ? Expanded(
+                      child: FutureBuilder(
+                        future: thumbnailCreation(tag),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<Uint8List?> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return Container(
+                              constraints: const BoxConstraints.expand(),
+                              child: Image.memory(
+                                snapshot.data!,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          }
+                          return const Center();
+                        },
+                      ),
+                    )
+                  : Expanded(
+                      child: Container(
+                        color: Color(0xFFc1c1c1),
+                      ),
+                    ),
+
               // if (false) const CircularProgressIndicator(),
               ListTile(
                 // leading: Icon(Icons.arrow_drop_down_circle),

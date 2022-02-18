@@ -1,10 +1,11 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
-import 'image_screen.dart';
 // import 'package:flutter_application_photo_tag/view/photoAccess/photo_acquisition.dart';
 
 import 'package:photo_manager/photo_manager.dart';
+
+import '../widget/image_screen.dart';
 
 class PhotoHome extends StatefulWidget {
   const PhotoHome({Key? key}) : super(key: key);
@@ -69,10 +70,15 @@ class _PhotoHomeState extends State<PhotoHome> {
       },
       child: GridView.builder(
         itemCount: assetList.length,
+
         //写真を一列に何枚ずつ置くか決める
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) {
+          // currentPage++;
+          print(assetList.length);
+          print(currentPage);
+          print(lastPage);
           final asset = assetList[index];
           final image = imageList[index];
           return InkWell(
