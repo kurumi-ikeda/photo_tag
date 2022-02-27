@@ -69,7 +69,7 @@ class _PhotoHomeState extends State<PhotoHome> {
         return false;
       },
       child: GridView.builder(
-        itemCount: assetList.length,
+        itemCount: imageList.length,
 
         //写真を一列に何枚ずつ置くか決める
         gridDelegate:
