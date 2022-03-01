@@ -7,6 +7,9 @@ import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_photo_grid_view.dart';
 
+import 'package:provider/provider.dart';
+
+import 'result_selection_provider.dart';
 import 'serect_photo_grid_view.dart';
 
 /*
@@ -25,13 +28,13 @@ class TagPage extends StatefulWidget {
 }
 
 class _TagPageState extends State<TagPage> {
-  bool isSelectionState = false;
-
-  Widget bodyWidgetChange() {
+  Widget bodyWidgetChange(bool isSelectionState) {
     if (isSelectionState) {
       return SerectPhotoGridView(tag: widget.tag);
     } else {
-      return TagPhotoGridView(tag: widget.tag);
+      return TagPhotoGridView(
+        tag: widget.tag,
+      );
     }
   }
 
@@ -77,43 +80,97 @@ class _TagPageState extends State<TagPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.tag.tagName),
-        actions: <Widget>[
-          PopupMenuButton(
-              itemBuilder: (context) => <PopupMenuEntry>[
-                    PopupMenuItem(
-                      child: const Text("写真編集"),
-                      onTap: () {
-                        isSelectionState = true;
-                        setState(() {});
-                      },
-                    ),
-                    PopupMenuItem(
-                      child: const Text("名前変更"),
-                      onTap: () async {
-                        await Future.delayed(const Duration(seconds: 0));
-                        final text = await showDialog<String>(
-                          context: context,
-                          builder: (context) {
-                            return const EditDialog();
+    // context.
+    return ChangeNotifierProvider(
+        create: (BuildContext context) {
+          ResultSelectionProvider();
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.tag.tagName),
+            actions: <Widget>[
+              PopupMenuButton(
+                  itemBuilder: (context) => <PopupMenuEntry>[
+                        PopupMenuItem(
+                          child: const Text("写真編集"),
+                          onTap: () {
+                            context
+                                .read<ResultSelectionProvider>()
+                                .changeIsSelectionState();
+                            // model.changeIsSelectionState();
+                            // isSelectionState = true;
+                            setState(() {});
                           },
-                        );
-                        if (text?.isNotEmpty == true) {
-                          widget.tag.tagName = text!;
+                        ),
+                        PopupMenuItem(
+                          child: const Text("名前変更"),
+                          onTap: () async {
+                            await Future.delayed(const Duration(seconds: 0));
+                            final text = await showDialog<String>(
+                              context: context,
+                              builder: (context) {
+                                return const EditDialog();
+                              },
+                            );
+                            if (text?.isNotEmpty == true) {
+                              widget.tag.tagName = text!;
 
-                          await Boxes.updateTag(widget.tag);
-                          setState(() {});
-                        }
-                      },
-                    ),
-                  ]),
-        ],
-      ),
-      body: bodyWidgetChange(),
-    );
+                              await Boxes.updateTag(widget.tag);
+                              setState(() {});
+                            }
+                          },
+                        ),
+                      ]),
+            ],
+          ),
+          body: bodyWidgetChange(
+            context.watch<ResultSelectionProvider>().isSelectionState,
+          ),
+        ));
   }
+  // @override
+  // Widget build(BuildContext context) {
+  //   // context.
+  //   return Consumer<ResultSelectionProvider>(builder: (context, model, _) {
+  //     return Scaffold(
+  //       appBar: AppBar(
+  //         title: Text(widget.tag.tagName),
+  //         actions: <Widget>[
+  //           PopupMenuButton(
+  //               itemBuilder: (context) => <PopupMenuEntry>[
+  //                     PopupMenuItem(
+  //                       child: const Text("写真編集"),
+  //                       onTap: () {
+  //                         model.changeIsSelectionState();
+  //                         // isSelectionState = true;
+  //                         setState(() {});
+  //                       },
+  //                     ),
+  //                     PopupMenuItem(
+  //                       child: const Text("名前変更"),
+  //                       onTap: () async {
+  //                         await Future.delayed(const Duration(seconds: 0));
+  //                         final text = await showDialog<String>(
+  //                           context: context,
+  //                           builder: (context) {
+  //                             return const EditDialog();
+  //                           },
+  //                         );
+  //                         if (text?.isNotEmpty == true) {
+  //                           widget.tag.tagName = text!;
+
+  //                           await Boxes.updateTag(widget.tag);
+  //                           setState(() {});
+  //                         }
+  //                       },
+  //                     ),
+  //                   ]),
+  //         ],
+  //       ),
+  //       body: bodyWidgetChange(model.isSelectionState),
+  //     );
+  //   });
+  // }
 }
 
 class EditDialog extends StatefulWidget {

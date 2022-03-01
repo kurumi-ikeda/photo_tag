@@ -4,14 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
-import 'package:flutter_application_photo_tag/tag_library/selection_state.dart';
-import 'package:flutter_application_photo_tag/tag_library/tag_page.dart';
+import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
+import 'package:flutter_application_photo_tag/tag_library/tag_page/selection_state.dart';
+import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
 import 'package:photo_manager/photo_manager.dart';
-
-import 'image_screen.dart';
+import 'package:provider/provider.dart';
+import '../../widget/image_screen.dart';
 
 class TagPhotoGridView extends StatefulWidget {
   TagPhotoGridView({Key? key, required this.tag}) : super(key: key);
+
   Tag tag;
 
   @override
@@ -58,6 +60,7 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
 
   @override
   Widget build(BuildContext context) {
+    // context.debugDoingBuild
     // SelectionState selectionState = Provider.of<SelectionState>(context);
     return Scaffold(
         appBar: AppBar(
@@ -69,7 +72,10 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
                         child: const Text("写真編集"),
                         onTap: () {
                           // selectionState.changeIsSelectionState();
-                          SelectionState.changeIsSelectionState;
+                          context
+                              .read<ResultSelectionProvider>()
+                              .changeIsSelectionState();
+                          // SelectionState.changeIsSelectionState;
 
                           setState(() {});
                         },
