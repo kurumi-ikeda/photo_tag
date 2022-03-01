@@ -3,7 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
+import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:provider/src/provider.dart';
 
 class SerectPhotoGridView extends StatefulWidget {
   SerectPhotoGridView({Key? key, required this.tag}) : super(key: key);
@@ -60,7 +62,18 @@ class _SerectPhotoGridViewState extends State<SerectPhotoGridView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: IconThemeData(color: serectStateColor),
+        centerTitle: true,
+        title: Text(widget.tag.tagName),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.close_outlined,
+          ),
+          onPressed: () {
+            context.read<ResultSelectionProvider>().changeIsSelectionState();
+          },
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(

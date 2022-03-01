@@ -82,51 +82,13 @@ class _TagPageState extends State<TagPage> {
   Widget build(BuildContext context) {
     // context.
     return ChangeNotifierProvider(
-        create: (BuildContext context) {
-          ResultSelectionProvider();
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.tag.tagName),
-            actions: <Widget>[
-              PopupMenuButton(
-                  itemBuilder: (context) => <PopupMenuEntry>[
-                        PopupMenuItem(
-                          child: const Text("写真編集"),
-                          onTap: () {
-                            context
-                                .read<ResultSelectionProvider>()
-                                .changeIsSelectionState();
-                            // model.changeIsSelectionState();
-                            // isSelectionState = true;
-                            setState(() {});
-                          },
-                        ),
-                        PopupMenuItem(
-                          child: const Text("名前変更"),
-                          onTap: () async {
-                            await Future.delayed(const Duration(seconds: 0));
-                            final text = await showDialog<String>(
-                              context: context,
-                              builder: (context) {
-                                return const EditDialog();
-                              },
-                            );
-                            if (text?.isNotEmpty == true) {
-                              widget.tag.tagName = text!;
-
-                              await Boxes.updateTag(widget.tag);
-                              setState(() {});
-                            }
-                          },
-                        ),
-                      ]),
-            ],
-          ),
-          body: bodyWidgetChange(
-            context.watch<ResultSelectionProvider>().isSelectionState,
-          ),
-        ));
+      create: (BuildContext context) {
+        ResultSelectionProvider();
+      },
+      child: bodyWidgetChange(
+        context.watch<ResultSelectionProvider>().isSelectionState,
+      ),
+    );
   }
   // @override
   // Widget build(BuildContext context) {
