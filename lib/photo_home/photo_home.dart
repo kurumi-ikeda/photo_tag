@@ -1,11 +1,12 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/video_screen.dart';
 
 // import 'package:flutter_application_photo_tag/view/photoAccess/photo_acquisition.dart';
 
 import 'package:photo_manager/photo_manager.dart';
 
-import '../widget/image_screen.dart';
+import '../image_screen.dart';
 
 class PhotoHome extends StatefulWidget {
   const PhotoHome({Key? key}) : super(key: key);
@@ -85,9 +86,15 @@ class _PhotoHomeState extends State<PhotoHome> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => ImageScreen(imageFile: asset.file),
-                ),
+                MaterialPageRoute(builder: (_) {
+                  if (asset.type == AssetType.image) {
+                    return ImageScreen(imageFile: asset.file);
+                  } else {
+                    return VideoScreen(
+                      videoFile: asset.file,
+                    );
+                  }
+                }),
               );
             },
             child: Stack(

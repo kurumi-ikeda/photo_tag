@@ -7,8 +7,7 @@ import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'home/photo_home.dart';
-
+import 'photo_home/photo_home.dart';
 import 'search/search_view.dart';
 import 'tag_library/tag_page/result_selection_provider.dart';
 
