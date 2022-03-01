@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/serect_photo/serect_photo.dart';
+import 'package:flutter_application_photo_tag/select_photo/select_photo.dart';
+
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 
@@ -56,7 +57,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _navIndex = 0;
 
-  final _navWiget = [
+  final _navWidget = [
     const PhotoHome(),
     const TagLibraryView(),
     // PhotoLibraryView(),
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (
                     context,
                   ) =>
-                          const SerectPotho()));
+                          const SelectPhoto()));
             },
           ),
         ],
@@ -110,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         currentIndex: _navIndex,
       ),
-      body: _navWiget.elementAt(_navIndex),
+      body: _navWidget.elementAt(_navIndex),
     );
   }
 }

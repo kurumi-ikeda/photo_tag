@@ -15,7 +15,7 @@ class _HiveSampleState extends State<HiveSample> {
 
   // 初期化が完了したかどうかをはかる
   //↑ボックスを開いたらtrueになる
-  bool isInittlized = false;
+  bool initialized = false;
 
   // final memoBox = Hive.box('memo');
 
@@ -24,7 +24,7 @@ class _HiveSampleState extends State<HiveSample> {
     await Hive.openBox('memo');
 
     //開いたので trueになる
-    isInittlized = true;
+    initialized = true;
     //再描画
     setState(() {});
   }
@@ -67,8 +67,8 @@ class _HiveSampleState extends State<HiveSample> {
         title: const Text('Hiveサンプル'),
       ),
       body: SingleChildScrollView(
-        //三項演算子でtureならColumnの内容を表示、falseならCenterの中身を表示させる
-        child: isInittlized
+        //三項演算子でtrueならColumnの内容を表示、falseならCenterの中身を表示させる
+        child: initialized
             ? Column(
                 children: [
                   Padding(
