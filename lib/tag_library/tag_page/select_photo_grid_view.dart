@@ -7,16 +7,15 @@ import 'package:flutter_application_photo_tag/tag_library/tag_page/result_select
 import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/src/provider.dart';
 
-class SerectPhotoGridView extends StatefulWidget {
-  SerectPhotoGridView({Key? key, required this.tag}) : super(key: key);
-  Tag tag;
+class SelectPhotoGridView extends StatefulWidget {
+  const SelectPhotoGridView({Key? key, required this.tag}) : super(key: key);
+  final Tag tag;
 
   @override
-  _SerectPhotoGridViewState createState() => _SerectPhotoGridViewState();
+  _SelectPhotoGridViewState createState() => _SelectPhotoGridViewState();
 }
 
-class _SerectPhotoGridViewState extends State<SerectPhotoGridView> {
-  final MaterialColor serectStateColor = Colors.lightBlue;
+class _SelectPhotoGridViewState extends State<SelectPhotoGridView> {
   //ここに選択したものが追加される
   var selectedList = <AssetEntity>[];
   //端末から写真を取得するためのList
@@ -63,7 +62,7 @@ class _SerectPhotoGridViewState extends State<SerectPhotoGridView> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        iconTheme: IconThemeData(color: serectStateColor),
+        iconTheme: const IconThemeData(color: Colors.lightBlue),
         centerTitle: true,
         title: Text(widget.tag.tagName),
         leading: IconButton(
@@ -76,12 +75,12 @@ class _SerectPhotoGridViewState extends State<SerectPhotoGridView> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.more_horiz_outlined,
-              color: serectStateColor,
+              color: Colors.lightBlue,
             ),
             onPressed: () async {
-              var result = await showModalBottomSheet(
+              await showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
                   return Column(
@@ -90,8 +89,8 @@ class _SerectPhotoGridViewState extends State<SerectPhotoGridView> {
                       ListTile(
                         title: const Text('tagから削除'),
                         onTap: () async {
-                          for (var serectAsset in selectedList) {
-                            assetList.remove(serectAsset);
+                          for (var selectAsset in selectedList) {
+                            assetList.remove(selectAsset);
                           }
                           final photoIdList =
                               assetList.map((e) => e!.id).toList();
@@ -154,14 +153,14 @@ class _SerectPhotoGridViewState extends State<SerectPhotoGridView> {
                     ),
                   //check_circleを反映している場所?
                   if (selectedList.map((e) => e.id).toList().contains(asset.id))
-                    Align(
+                    const Align(
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         //余白
                         padding: EdgeInsets.all(4),
                         child: Icon(
                           Icons.check_circle,
-                          color: serectStateColor,
+                          color: Colors.lightBlue,
                         ),
                       ),
                     )

@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 
 /*
 作るべきメソッド
-tagnameの名前を替えられるメソッド(rename)
+tagNameの名前を替えられるメソッド(rename)
 selectedListの中身を変更できるメソッド(rename)
 
 */
@@ -22,9 +22,10 @@ class TagCreate {
     tag = Tag(key: key, photoIdList: photoIdList, tagName: tagName);
     // keyを指定して保存
     await box.put(key, tag);
-    for (var tag in box.values.toList()) {
-      print('tag name: ${tag.tagName}');
-      print('photoIdList: ${tag.photoIdList}');
-    }
+    //デバック用
+    // for (var tag in box.values.toList()) {
+    //   print('tag name: ${tag.tagName}');
+    //   print('photoIdList: ${tag.photoIdList}');
+    // }
   }
 }

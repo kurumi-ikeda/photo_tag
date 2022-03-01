@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
-import 'package:flutter_application_photo_tag/tag_library/tag_page/selection_state.dart';
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
 import '../../widget/image_screen.dart';
 
 class TagPhotoGridView extends StatefulWidget {
-  TagPhotoGridView({Key? key, required this.tag}) : super(key: key);
+  const TagPhotoGridView({Key? key, required this.tag}) : super(key: key);
 
-  Tag tag;
+  final Tag tag;
 
   @override
   _TagPhotoGridViewState createState() => _TagPhotoGridViewState();

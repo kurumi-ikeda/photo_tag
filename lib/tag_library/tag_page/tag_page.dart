@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
-import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_photo_grid_view.dart';
@@ -10,11 +7,11 @@ import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_photo_gri
 import 'package:provider/provider.dart';
 
 import 'result_selection_provider.dart';
-import 'serect_photo_grid_view.dart';
+import 'select_photo_grid_view.dart';
 
 /*
 作るべきメソッド
-tagnameの名前を替えられるメソッド(rename)
+tagNameの名前を替えられるメソッド(rename)
 selectedListの中身を変更できるメソッド(rename)
 
 */
@@ -30,7 +27,7 @@ class TagPage extends StatefulWidget {
 class _TagPageState extends State<TagPage> {
   Widget bodyWidgetChange(bool isSelectionState) {
     if (isSelectionState) {
-      return SerectPhotoGridView(tag: widget.tag);
+      return SelectPhotoGridView(tag: widget.tag);
     } else {
       return TagPhotoGridView(
         tag: widget.tag,

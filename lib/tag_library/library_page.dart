@@ -104,7 +104,7 @@ class TagWidget extends StatelessWidget {
                     )
                   : Expanded(
                       child: Container(
-                        color: Color(0xFFc1c1c1),
+                        color: const Color(0xFFc1c1c1),
                       ),
                     ),
 
