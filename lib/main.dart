@@ -4,16 +4,27 @@ import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'home/photo_home.dart';
 
 import 'search/search_view.dart';
+import 'tag_library/tag_page/result_selection_provider.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TagAdapter());
   await Hive.openBox<Tag>('tags');
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ResultSelectionProvider>(
+          create: (_) => ResultSelectionProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -103,54 +114,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-// class HomeBottomNavigationBar extends StatefulWidget {
-//   const HomeBottomNavigationBar({Key? key}) : super(key: key);
-
-//   @override
-//   _HomeBottomNavigationBarState createState() =>
-//       _HomeBottomNavigationBarState();
-// }
-
-// class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
-//   var _navIndex = 0;
-//   var _label = '';
-//   var _titles = ['insert_photo', 'photo_library', 'search'];
-
-//   var navWiget = [
-//     PhotoHome(),
-//     PhotoLibraryView(),
-//     SearchView(),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BottomNavigationBar(
-//       items: [
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.insert_photo),
-//           title: Text('insert_photo'),
-//         ),
-//         BottomNavigationBarItem(
-//           icon: Icon(
-//             Icons.photo_library,
-//           ),
-//           title: Text('photo_library'),
-//         ),
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.search),
-//           title: Text('search'),
-//         ),
-//       ],
-//       onTap: (int index) {
-//         setState(
-//           () {
-//             _navIndex = index;
-//             _label = _titles[index];
-//           },
-//         );
-//       },
-//       currentIndex: _navIndex,
-//     );
-//   }
-// }
