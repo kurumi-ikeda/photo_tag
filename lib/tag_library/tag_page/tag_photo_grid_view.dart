@@ -52,7 +52,7 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
   _handleScrollEvent(ScrollNotification scroll) {
     if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {
       if (currentPage != lastPage) {
-        _imageFormat();
+        // _imageFormat();
       }
     }
   }
@@ -70,11 +70,9 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
                       PopupMenuItem(
                         child: const Text("写真編集"),
                         onTap: () {
-                          // selectionState.changeIsSelectionState();
                           context
                               .read<ResultSelectionProvider>()
                               .changeIsSelectionState();
-                          // SelectionState.changeIsSelectionState;
 
                           setState(() {});
                         },
