@@ -2,8 +2,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/video_screen.dart';
 
-// import 'package:flutter_application_photo_tag/view/photoAccess/photo_acquisition.dart';
-
 import 'package:photo_manager/photo_manager.dart';
 
 import '../image_screen.dart';
@@ -34,7 +32,7 @@ class _PhotoHomeState extends State<PhotoHome> {
   _handleScrollEvent(ScrollNotification scroll) {
     if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {
       if (currentPage != lastPage) {
-        fetchNewMedia();
+        // fetchNewMedia();
       }
     }
   }
@@ -46,8 +44,9 @@ class _PhotoHomeState extends State<PhotoHome> {
       //アルバムを最初に取得する
       List<AssetPathEntity> albums =
           await PhotoManager.getAssetPathList(onlyAll: true);
-      assetList = await albums[0].getAssetListPaged(currentPage, 60);
-      // print("${assetList.length} aaa ${assetList}, ${assetList.length}");
+      assetList = await albums[0].assetList;
+      // assetList = await albums[0].getAssetListPaged(currentPage, 60);
+      print("${assetList.length} aaa ${assetList}, ${assetList.length}");
       //今まで取りにいっていたものを最初に取りに行く
       imageList = await Future.wait(
         assetList.map((e) => e.thumbDataWithSize(200, 200)).toList(),
@@ -77,6 +76,10 @@ class _PhotoHomeState extends State<PhotoHome> {
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) {
           // currentPage++;
+          if (index <= imageList.length) {
+            // currentPage += 1;
+            // print("object");
+          }
           print(assetList.length);
           print(currentPage);
           print(lastPage);

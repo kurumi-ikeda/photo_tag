@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/photo_home/image_list.dart';
 import 'package:flutter_application_photo_tag/select_photo/select_photo.dart';
 
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
@@ -57,9 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var _navIndex = 0;
 
   final _navWidget = [
-    const PhotoHome(),
+    const ImageListWidget(),
     const TagLibraryView(),
-    // PhotoLibraryView(),
     const SearchView(),
   ];
 
