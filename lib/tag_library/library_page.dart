@@ -78,48 +78,56 @@ class TagWidget extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (_) => TagPage(tag: tag)),
             ),
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              tag.photoIdList.isNotEmpty
-                  ? Expanded(
-                      child: FutureBuilder(
-                        future: thumbnailCreation(tag),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<Uint8List?> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return Container(
-                              constraints: const BoxConstraints.expand(),
-                              child: Image.memory(
-                                snapshot.data!,
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          }
-                          return const Center();
-                        },
-                      ),
-                    )
-                  : Expanded(
-                      child: Container(
-                        color: const Color(0xFFc1c1c1),
-                      ),
-                    ),
+        child: TagCard(tag: tag));
+  }
+}
 
-              // if (false) const CircularProgressIndicator(),
-              ListTile(
-                // leading: Icon(Icons.arrow_drop_down_circle),
-                title: Text(tag.tagName),
-                subtitle: Text(
-                  '${tag.photoIdList.length}個',
-                  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+class TagCard extends StatelessWidget {
+  final Tag tag;
+  const TagCard({Key? key, required this.tag}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: [
+          tag.photoIdList.isNotEmpty
+              ? Expanded(
+                  child: FutureBuilder(
+                    future: thumbnailCreation(tag),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<Uint8List?> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Container(
+                          constraints: const BoxConstraints.expand(),
+                          child: Image.memory(
+                            snapshot.data!,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }
+                      return const Center();
+                    },
+                  ),
+                )
+              : Expanded(
+                  child: Container(
+                    color: const Color(0xFFc1c1c1),
+                  ),
                 ),
-              ),
-            ],
+
+          // if (false) const CircularProgressIndicator(),
+          ListTile(
+            title: Text(tag.tagName),
+            subtitle: Text(
+              '${tag.photoIdList.length}個',
+              style: TextStyle(color: Colors.black.withOpacity(0.6)),
+            ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
 

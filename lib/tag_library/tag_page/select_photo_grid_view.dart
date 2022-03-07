@@ -59,6 +59,7 @@ class _SelectPhotoGridViewState extends State<SelectPhotoGridView> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -83,23 +84,26 @@ class _SelectPhotoGridViewState extends State<SelectPhotoGridView> {
               await showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        title: const Text('tagから削除'),
-                        onTap: () async {
-                          for (var selectAsset in selectedList) {
-                            assetList.remove(selectAsset);
-                          }
-                          final photoIdList =
-                              assetList.map((e) => e!.id).toList();
-                          widget.tag.photoIdList = photoIdList;
-                          Boxes.updateTag(widget.tag);
-                          setState(() {});
-                        },
-                      ),
-                    ],
+                  return Container(
+                    height: _screenSize.height * 0.3,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          title: const Text('tagから削除'),
+                          onTap: () async {
+                            for (var selectAsset in selectedList) {
+                              assetList.remove(selectAsset);
+                            }
+                            final photoIdList =
+                                assetList.map((e) => e!.id).toList();
+                            widget.tag.photoIdList = photoIdList;
+                            Boxes.updateTag(widget.tag);
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 },
               );
