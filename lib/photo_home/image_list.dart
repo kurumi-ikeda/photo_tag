@@ -68,9 +68,7 @@ class _ImageListWidgetState extends State<ImageListWidget> {
           FutureBuilder<Uint8List?>(
             future: asset.thumbDataWithSize(200, 200),
             builder: (BuildContext context, snapshot) {
-              // TODO: navigate to Image/Video screen
-
-              if (snapshot.connectionState == ConnectionState.done)
+              if (snapshot.connectionState == ConnectionState.done) {
                 return Stack(
                   children: <Widget>[
                     Positioned.fill(
@@ -86,7 +84,6 @@ class _ImageListWidgetState extends State<ImageListWidget> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => ImageScreen(imageFile: asset.file),
-                            // TODO: navigate to Image/Video screen
                           ),
                         );
                       },
@@ -106,6 +103,7 @@ class _ImageListWidgetState extends State<ImageListWidget> {
                       ),
                   ],
                 );
+              }
               return Container();
             },
           ),

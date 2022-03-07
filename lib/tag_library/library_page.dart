@@ -119,6 +119,8 @@ class TagCard extends StatelessWidget {
 
           // if (false) const CircularProgressIndicator(),
           ListTile(
+            visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
             title: Text(tag.tagName),
             subtitle: Text(
               '${tag.photoIdList.length}個',
