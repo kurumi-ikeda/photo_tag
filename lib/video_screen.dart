@@ -75,7 +75,7 @@ class _VideoScreenState extends State<VideoScreen> {
               ),
             )
           // If the video is not yet initialized, display a spinner
-          : Center(child: CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }
