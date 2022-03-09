@@ -14,7 +14,7 @@ class ImageListWidget extends StatefulWidget {
 
 class _ImageListWidgetState extends State<ImageListWidget> {
   //写真一つ一つを読み込みための変数
-  List<Widget> _mediaList = [];
+  final List<Widget> _mediaList = [];
   List<AssetPathEntity> albums = [];
 
   // final selectedImageList = <AssetPathEntity>[];

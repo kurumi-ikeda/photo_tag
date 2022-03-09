@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/select_photo/select_photo_test.dart';
+import 'package:flutter_application_photo_tag/select_photo/select_photo.dart';
 
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';

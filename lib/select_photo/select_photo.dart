@@ -9,14 +9,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:photo_manager/photo_manager.dart';
 
-class SerectPhoto extends StatefulWidget {
-  const SerectPhoto({Key? key}) : super(key: key);
+class SelectPhoto extends StatefulWidget {
+  const SelectPhoto({Key? key}) : super(key: key);
 
   @override
-  _SerectPhotoState createState() => _SerectPhotoState();
+  _SelectPhotoState createState() => _SelectPhotoState();
 }
 
-class _SerectPhotoState extends State<SerectPhoto> {
+class _SelectPhotoState extends State<SelectPhoto> {
   //写真一つ一つを読み込みための変数
   final List<_PhotoAsset> _mediaList = [];
   List<AssetPathEntity> albums = [];
