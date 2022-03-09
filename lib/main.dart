@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/main_app_bar.dart';
 import 'package:flutter_application_photo_tag/select_photo/select_photo.dart';
 
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
@@ -39,14 +40,16 @@ class MyApp extends StatelessWidget {
         // This is the theme of your application.
         primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Photo Tag'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const MyHomePage({
+    Key? key,
+  }) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -63,24 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              // Command.tagAdd(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (
-                    context,
-                  ) =>
-                          const SelectPhoto()));
-            },
-          ),
-        ],
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(

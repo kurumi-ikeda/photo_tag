@@ -39,12 +39,12 @@ class _SelectPhotoState extends State<SelectPhoto> {
   }
 
   Future<void> init() async {
-    await fetechAllPhoto();
+    await fetchAllPhoto();
     await fetchNewMedia();
   }
 
   //写真全体を追加
-  Future<void> fetechAllPhoto() async {
+  Future<void> fetchAllPhoto() async {
     var result = await PhotoManager.requestPermission();
     if (result) {
       albums = await PhotoManager.getAssetPathList(onlyAll: true);

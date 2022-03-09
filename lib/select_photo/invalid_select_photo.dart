@@ -10,6 +10,17 @@
 
 // import 'package:photo_manager/photo_manager.dart';
 
+// /*  
+
+
+// 未来の自分へ
+// これは2022年3/9日時点のデータです。色々仕様が変わってますので、そのまま使わないように。
+
+
+
+
+// */
+
 // class SelectPhoto extends StatefulWidget {
 //   const SelectPhoto({Key? key}) : super(key: key);
 
