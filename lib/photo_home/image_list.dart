@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/main_app_bar.dart';
 
 import 'package:photo_manager/photo_manager.dart';
 
@@ -28,12 +29,12 @@ class _ImageListWidgetState extends State<ImageListWidget> {
   }
 
   Future<void> init() async {
-    await fetechAllPhoto();
+    await fetchAllPhoto();
     await fetchNewMedia();
   }
 
   //写真全体を追加
-  Future<void> fetechAllPhoto() async {
+  Future<void> fetchAllPhoto() async {
     var result = await PhotoManager.requestPermission();
     if (result) {
       albums = await PhotoManager.getAssetPathList(onlyAll: true);
@@ -121,18 +122,20 @@ class _ImageListWidgetState extends State<ImageListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification scroll) {
-          _handleScrollEvent(scroll);
-          return false;
-        },
-        child: GridView.builder(
-            itemCount: _mediaList.length,
-            //写真を一列に何枚ずつ置くか決める
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3),
-            itemBuilder: (BuildContext context, int index) {
-              return _mediaList[index];
-            }));
+    return Scaffold(
+        appBar: const MainAppBar(),
+        body: NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification scroll) {
+              _handleScrollEvent(scroll);
+              return false;
+            },
+            child: GridView.builder(
+                itemCount: _mediaList.length,
+                //写真を一列に何枚ずつ置くか決める
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemBuilder: (BuildContext context, int index) {
+                  return _mediaList[index];
+                })));
   }
 }

@@ -84,7 +84,7 @@ class _SelectPhotoGridViewState extends State<SelectPhotoGridView> {
               await showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
-                  return Container(
+                  return SizedBox(
                     height: _screenSize.height * 0.3,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
