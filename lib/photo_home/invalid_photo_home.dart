@@ -46,7 +46,7 @@ class _PhotoHomeState extends State<PhotoHome> {
           await PhotoManager.getAssetPathList(onlyAll: true);
       assetList = await albums[0].assetList;
       // assetList = await albums[0].getAssetListPaged(currentPage, 60);
-      print("${assetList.length} aaa ${assetList}, ${assetList.length}");
+      // print("${assetList.length} aaa ${assetList}, ${assetList.length}");
       //今まで取りにいっていたものを最初に取りに行く
       imageList = await Future.wait(
         assetList.map((e) => e.thumbDataWithSize(200, 200)).toList(),
@@ -80,9 +80,9 @@ class _PhotoHomeState extends State<PhotoHome> {
             // currentPage += 1;
             // print("object");
           }
-          print(assetList.length);
-          print(currentPage);
-          print(lastPage);
+          // print(assetList.length);
+          // print(currentPage);
+          // print(lastPage);
           final asset = assetList[index];
           final image = imageList[index];
           return InkWell(
