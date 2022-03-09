@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/select_photo/select_photo_test.dart';
 
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
@@ -8,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import 'photo_home/image_list.dart';
 import 'search/search_view.dart';
-import 'select_photo/select_photo.dart';
 import 'tag_library/tag_page/result_selection_provider.dart';
 
 Future<void> main() async {
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         // This is the theme of your application.
         primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Media Picker Example App'),
+      home: const MyHomePage(title: 'Photo Tag'),
     );
   }
 }
