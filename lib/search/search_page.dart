@@ -5,17 +5,17 @@ import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 
-class SearchView extends StatefulWidget {
-  const SearchView({Key? key}) : super(key: key);
+class SearchPage extends StatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  _SearchViewState createState() => _SearchViewState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchViewState extends State<SearchView> {
+class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
   List<Tag> tags = Boxes.getTags().values.toList();
-  List<int> searchIndexList = [];
+  List<Tag> searchTagList = [];
   // List<Tag>
 
   @override
@@ -26,8 +26,6 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
     controller.dispose();
     super.dispose();
   }
@@ -39,7 +37,6 @@ class _SearchViewState extends State<SearchView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text("$searchIndexList"),
             searchTextContainer(searchTextField()),
             suggestionContainer(suggestionListView()),
             searchListView(),
@@ -67,15 +64,13 @@ class _SearchViewState extends State<SearchView> {
   }
 
   void searchWordContains() {
-    // print(searchIndexList);
     setState(() {
-      searchIndexList = [];
+      searchTagList = [];
+      // String searchedWord
       if (controller.text.isNotEmpty) {
         for (int i = 0; i < tags.length; i++) {
-          print(controller.text);
           if (tags[i].tagName.contains(controller.text)) {
-            searchIndexList.add(i);
-            print(searchIndexList);
+            searchTagList.add(tags[i]);
           }
         }
       }
@@ -116,7 +111,7 @@ class _SearchViewState extends State<SearchView> {
 
   Widget suggestionContainer(Widget suggestionListView) {
     //このif文がないと、Containerのborderが表示してしまう。
-    if (searchIndexList.isNotEmpty) {
+    if (searchTagList.isNotEmpty) {
       return Container(
           margin: const EdgeInsets.only(
             left: 8,
@@ -138,21 +133,19 @@ class _SearchViewState extends State<SearchView> {
     return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: searchIndexList.length,
+        itemCount: searchTagList.length,
         itemBuilder: (context, index) {
-          index = searchIndexList[index];
           return ListTile(
             onTap: () {
-              controller.text = tags[index].tagName + " ";
+              controller.text = searchTagList[index].tagName + " ";
               controller.selection = TextSelection.fromPosition(
                   TextPosition(offset: controller.text.length));
-              // controller.addListener(tags[index].tagName);
             },
             trailing: const Icon(
               Icons.north_west,
               color: Colors.grey,
             ),
-            title: Text(tags[index].tagName),
+            title: Text(searchTagList[index].tagName),
             subtitle: Text(controller.text),
           );
         });
@@ -167,10 +160,9 @@ class _SearchViewState extends State<SearchView> {
           mainAxisSpacing: 20.0, //横スペース
         ),
         padding: const EdgeInsets.all(4),
-        itemCount: searchIndexList.length,
+        itemCount: searchTagList.length,
         itemBuilder: (context, index) {
-          index = searchIndexList[index];
-          return TagWidget(tag: tags[index]);
+          return TagWidget(tag: searchTagList[index]);
         });
   }
 }

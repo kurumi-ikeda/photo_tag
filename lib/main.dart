@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'photo_home/image_list.dart';
-import 'search/search_view.dart';
+import 'search/search_page.dart';
 import 'tag_library/tag_page/result_selection_provider.dart';
 
 Future<void> main() async {
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _navWidget = [
     const ImageListWidget(),
     const TagLibraryView(),
-    const SearchView(),
+    const SearchPage(),
   ];
 
   @override
