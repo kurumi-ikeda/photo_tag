@@ -56,8 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var _navIndex = 0;
 
   final _navWidget = [
-    const ImageListWidget(),
-    const TagLibraryView(),
+    const PhotoHomePage(),
+    const TagLibraryPage(),
     const SearchPage(),
   ];
 

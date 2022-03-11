@@ -8,14 +8,14 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:photo_manager/photo_manager.dart';
 
-class TagLibraryView extends StatefulWidget {
-  const TagLibraryView({Key? key}) : super(key: key);
+class TagLibraryPage extends StatefulWidget {
+  const TagLibraryPage({Key? key}) : super(key: key);
 
   @override
-  _TagLibraryViewState createState() => _TagLibraryViewState();
+  _TagLibraryPageState createState() => _TagLibraryPageState();
 }
 
-class _TagLibraryViewState extends State<TagLibraryView> {
+class _TagLibraryPageState extends State<TagLibraryPage> {
   @override
   void initState() {
     super.initState();

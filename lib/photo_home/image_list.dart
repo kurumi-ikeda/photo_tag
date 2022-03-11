@@ -6,14 +6,14 @@ import 'package:photo_manager/photo_manager.dart';
 
 import '../image_screen.dart';
 
-class ImageListWidget extends StatefulWidget {
-  const ImageListWidget({Key? key}) : super(key: key);
+class PhotoHomePage extends StatefulWidget {
+  const PhotoHomePage({Key? key}) : super(key: key);
 
   @override
-  _ImageListWidgetState createState() => _ImageListWidgetState();
+  _PhotoHomePageState createState() => _PhotoHomePageState();
 }
 
-class _ImageListWidgetState extends State<ImageListWidget> {
+class _PhotoHomePageState extends State<PhotoHomePage> {
   //写真一つ一つを読み込みための変数
   final List<Widget> _mediaList = [];
   List<AssetPathEntity> albums = [];
