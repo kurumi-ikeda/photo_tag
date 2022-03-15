@@ -16,6 +16,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
   List<Tag> tags = Boxes.getTags().values.toList();
   List<Tag> searchTagList = [];
+  // List<Tag>
 
   @override
   void initState() {
@@ -64,30 +65,17 @@ class _SearchPageState extends State<SearchPage> {
 
   void searchWordContains() {
     setState(() {
-      if (controller.text.isEmpty) {
-        return;
-      }
-      //空白文字区切り
-      List<String> splitSearchWords = controller.text.split(RegExp(r'\s'));
-      print(splitSearchWords);
       searchTagList = [];
       // String searchedWord
       if (controller.text.isNotEmpty) {
-        for (String word in splitSearchWords) {
-          for (int i = 0; i < tags.length; i++) {
-            if (tags[i].tagName.contains(word) && word.isNotEmpty) {
-              searchTagList.add(tags[i]);
-            }
-            // if (tags[i].tagName.contains(controller.text)) {
-            //   searchTagList.add(tags[i]);
-            // }
+        for (int i = 0; i < tags.length; i++) {
+          if (tags[i].tagName.contains(controller.text)) {
+            searchTagList.add(tags[i]);
           }
         }
       }
-      print(searchTagList);
     });
   }
-  // aaa
 
   TextField searchTextField() {
     return TextField(
