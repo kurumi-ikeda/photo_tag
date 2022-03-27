@@ -12,7 +12,7 @@ class Tag {
   late String tagName;
 
   @HiveField(2)
-  late List<String> photoIdList;
+  late List<String> photoIdList = [];
 
   @override
   String toString() {

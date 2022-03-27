@@ -35,46 +35,6 @@ class _TagPageState extends State<TagPage> {
     }
   }
 
-  // Widget appBarWidgetChange() {
-  //   if (isSelectionState) {
-  //     return AppBar();
-  //   } else {
-  //     return AppBar(
-  //       title: Text(widget.tag.tagName),
-  //       actions: <Widget>[
-  //         PopupMenuButton(
-  //             itemBuilder: (context) => <PopupMenuEntry>[
-  //                   PopupMenuItem(
-  //                     child: const Text("写真編集"),
-  //                     onTap: () {
-  //                       isSelectionState = true;
-  //                       setState(() {});
-  //                     },
-  //                   ),
-  //                   PopupMenuItem(
-  //                     child: const Text("名前変更"),
-  //                     onTap: () async {
-  //                       await Future.delayed(const Duration(seconds: 0));
-  //                       final text = await showDialog<String>(
-  //                         context: context,
-  //                         builder: (context) {
-  //                           return const EditDialog();
-  //                         },
-  //                       );
-  //                       if (text?.isNotEmpty == true) {
-  //                         widget.tag.tagName = text!;
-
-  //                         await Boxes.updateTag(widget.tag);
-  //                         setState(() {});
-  //                       }
-  //                     },
-  //                   ),
-  //                 ]),
-  //       ],
-  //     );
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     // context.
@@ -87,49 +47,6 @@ class _TagPageState extends State<TagPage> {
       ),
     );
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   // context.
-  //   return Consumer<ResultSelectionProvider>(builder: (context, model, _) {
-  //     return Scaffold(
-  //       appBar: AppBar(
-  //         title: Text(widget.tag.tagName),
-  //         actions: <Widget>[
-  //           PopupMenuButton(
-  //               itemBuilder: (context) => <PopupMenuEntry>[
-  //                     PopupMenuItem(
-  //                       child: const Text("写真編集"),
-  //                       onTap: () {
-  //                         model.changeIsSelectionState();
-  //                         // isSelectionState = true;
-  //                         setState(() {});
-  //                       },
-  //                     ),
-  //                     PopupMenuItem(
-  //                       child: const Text("名前変更"),
-  //                       onTap: () async {
-  //                         await Future.delayed(const Duration(seconds: 0));
-  //                         final text = await showDialog<String>(
-  //                           context: context,
-  //                           builder: (context) {
-  //                             return const EditDialog();
-  //                           },
-  //                         );
-  //                         if (text?.isNotEmpty == true) {
-  //                           widget.tag.tagName = text!;
-
-  //                           await Boxes.updateTag(widget.tag);
-  //                           setState(() {});
-  //                         }
-  //                       },
-  //                     ),
-  //                   ]),
-  //         ],
-  //       ),
-  //       body: bodyWidgetChange(model.isSelectionState),
-  //     );
-  //   });
-  // }
 }
 
 class EditDialog extends StatefulWidget {
