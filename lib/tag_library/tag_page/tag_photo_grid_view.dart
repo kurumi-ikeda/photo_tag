@@ -20,8 +20,6 @@ class TagPhotoGridView extends StatefulWidget {
 }
 
 class _TagPhotoGridViewState extends State<TagPhotoGridView> {
-  int currentPage = 0;
-  late int lastPage;
   List<Uint8List?> imageList = [];
   List<AssetEntity?> assetList = [];
 
@@ -41,7 +39,6 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
   }
 
   _imageFormat() async {
-    lastPage = currentPage;
     imageList = await Future.wait(
       assetList.map((e) => e!.thumbDataWithSize(200, 200)).toList(),
     );
@@ -50,17 +47,11 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
   }
 
   _handleScrollEvent(ScrollNotification scroll) {
-    if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {
-      if (currentPage != lastPage) {
-        // _imageFormat();
-      }
-    }
+    if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    // context.debugDoingBuild
-    // SelectionState selectionState = Provider.of<SelectionState>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.tag.tagName),

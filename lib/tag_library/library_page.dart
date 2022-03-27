@@ -116,7 +116,6 @@ class TagCard extends StatelessWidget {
                     color: const Color(0xFFc1c1c1),
                   ),
                 ),
-
           // if (false) const CircularProgressIndicator(),
           ListTile(
             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
