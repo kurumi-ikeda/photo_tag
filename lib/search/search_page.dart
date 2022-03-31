@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/main_app_bar.dart';
@@ -5,6 +7,8 @@ import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:photo_manager/photo_manager.dart';
+
+import '../image_screen.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -17,12 +21,17 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
   List<Tag> tags = Boxes.getTags().values.toList();
   List<Tag> searchTagList = [];
-  // List<Tag>
+  List<Uint8List?> imageList = [];
+  List<AssetEntity?> assetList = [];
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(searchWordContains);
+    Future(() async {
+      assetList = await tagPhotoIdInMatch();
+    });
+
+    controller.addListener(addListenerProcess);
   }
 
   @override
@@ -33,7 +42,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    tagPhotoIdInMatch();
+    // print(assetList.toString() + "aaa");
+    // print("imageList" + imageList.toString());
     return Scaffold(
       appBar: const MainAppBar(),
       // CustomScrollView
@@ -44,10 +54,20 @@ class _SearchPageState extends State<SearchPage> {
             CustomScrollView(
               shrinkWrap: true,
               slivers: [
+                // SliverAppBar(
+                //   floating: true,
+                //   title: _SearchTextField(controller: controller),
+                // ),
                 SliverToBoxAdapter(
                   child: suggestionContainer(suggestionListView()),
                 ),
                 searchListSliverGridView(),
+
+                _PhotoSliverGridView(
+                  imageList: imageList,
+                  assetList: assetList,
+                ),
+
                 // SliverToBoxAdapter(
                 //   child: searchListGridView(),
                 // ),
@@ -55,7 +75,7 @@ class _SearchPageState extends State<SearchPage> {
                 // suggestionSilverListView(),
               ],
             ),
-
+            // _PhotoGridView(assetList: assetList),
             // suggestionContainer(suggestionListView()),
             // searchListGridView(),
           ],
@@ -64,49 +84,44 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  void addListenerProcess() async {
+    searchWordContains();
+    assetList = await tagPhotoIdInMatch();
+    if (assetList.isNotEmpty) {
+      await _imageFormat();
+    }
+  }
+
   void searchWordContains() {
     setState(() {
-
       if (controller.text.isEmpty) {
         return;
       }
       //空白文字区切り
       List<String> splitSearchWords = controller.text.split(RegExp(r'\s'));
-
-
       searchTagList = [];
 
       if (controller.text.isNotEmpty) {
-        for (int i = 0; i < tags.length; i++) {
-          if (tags[i].tagName.contains(controller.text)) {
-            searchTagList.add(tags[i]);
+        for (String word in splitSearchWords) {
+          for (int i = 0; i < tags.length; i++) {
+            if (tags[i].tagName.contains(word) && word.isNotEmpty) {
+              searchTagList.add(tags[i]);
+            }
+            // if (tags[i].tagName.contains(controller.text)) {
+            //   searchTagList.add(tags[i]);
+            // }
           }
         }
       }
     });
   }
-TextField searchTextField() {
-    return TextField(
-      controller: controller,
-      autofocus: true,
-      style: const TextStyle(
-        //テキストのスタイル
-        color: Colors.black,
-        fontSize: 20,
-      ),
-      textInputAction: TextInputAction.search, //キーボードのアクションボタンを指定
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        prefixIcon: Icon(
-          Icons.search_outlined,
-          color: Colors.grey.withOpacity(0.9),
-        ),
-        hintText: '写真、タグを検索', //何も入力してないときに表示されるテキスト
-        hintStyle: const TextStyle(
-          fontSize: 20,
-        ),
-      ),
+
+  _imageFormat() async {
+    imageList = await Future.wait(
+      assetList.map((e) => e!.thumbDataWithSize(200, 200)).toList(),
     );
+
+    setState(() {});
   }
 
   Widget suggestionContainer(Widget suggestionListView) {
@@ -189,20 +204,20 @@ TextField searchTextField() {
     );
   }
 
-  Widget searchListGridView() {
-    return GridView.builder(
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 20.0, // 縦スペース
-          mainAxisSpacing: 20.0, //横スペース
-        ),
-        padding: const EdgeInsets.all(4),
-        itemCount: searchTagList.length,
-        itemBuilder: (context, index) {
-          return TagWidget(tag: searchTagList[index]);
-        });
-  }
+  // Widget searchListGridView() {
+  //   return GridView.builder(
+  //       shrinkWrap: true,
+  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisCount: 2,
+  //         crossAxisSpacing: 20.0, // 縦スペース
+  //         mainAxisSpacing: 20.0, //横スペース
+  //       ),
+  //       padding: const EdgeInsets.all(4),
+  //       itemCount: searchTagList.length,
+  //       itemBuilder: (context, index) {
+  //         return TagWidget(tag: searchTagList[index]);
+  //       });
+  // }
 
   Future<List<AssetEntity?>> tagPhotoIdInMatch() async {
     if (searchTagList.isNotEmpty) {
@@ -216,17 +231,15 @@ TextField searchTextField() {
         Set<String> beforePhotoId = beforeSearchTag.photoIdList.toSet();
         //互いのListに共通している要素をmatchedListに保存
         Set<String> matchedList = photoId.intersection(beforePhotoId);
-        // print(matchedList.toString() + "a");
+
         matchPhotoIdList.addAll(matchedList);
         beforeSearchTag = searchTagList[i];
       }
-      print(matchPhotoIdList);
 
       // List<AssetEntity?> assetList = await Future.wait(
       //   matchPhotoIdList.map((e) => AssetEntity.fromId(e)),
       // );
       List<AssetEntity?> assetList = await createAsset(matchPhotoIdList);
-      // print(" ${matchPhotoIdList.length}");
 
       return assetList;
       // searchTagList.length
@@ -241,10 +254,6 @@ TextField searchTextField() {
       photoIdList.map((e) => AssetEntity.fromId(e)),
     );
     return assetList;
-  }
-
-  Widget photoMatchInView() {
-    return Container();
   }
 }
 
@@ -276,7 +285,7 @@ class _SearchTextField extends StatelessWidget {
   TextField searchTextField() {
     return TextField(
       controller: controller,
-      autofocus: true,
+      // autofocus: true,
       style: const TextStyle(
         //テキストのスタイル
         color: Colors.black,
@@ -300,6 +309,167 @@ class _SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return searchTextContainer(searchTextField());
+  }
+}
+
+// class _PhotoGridView extends StatefulWidget {
+//   const _PhotoGridView({Key? key, required this.assetList}) : super(key: key);
+//   final List<AssetEntity?> assetList;
+
+//   @override
+//   State<_PhotoGridView> createState() => __PhotoGridViewState();
+// }
+
+// class __PhotoGridViewState extends State<_PhotoGridView> {
+//   List<Uint8List?> imageList = [];
+//   // List<AssetEntity?> assetList = [];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     Future(() async {
+//       await _imageFormat();
+//     });
+//   }
+
+//   _imageFormat() async {
+//     imageList = await Future.wait(
+//       widget.assetList.map((e) => e!.thumbDataWithSize(200, 200)).toList(),
+//     );
+
+//     setState(() {});
+//   }
+
+//   _handleScrollEvent(ScrollNotification scroll) {
+//     if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {}
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return NotificationListener<ScrollNotification>(
+//       onNotification: (ScrollNotification scroll) {
+//         _handleScrollEvent(scroll);
+//         return false;
+//       },
+//       child: GridView.builder(
+//           shrinkWrap: true,
+//           itemCount: imageList.length,
+//           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//               crossAxisCount: 3),
+//           itemBuilder: (BuildContext context, int index) {
+//             final asset = widget.assetList[index];
+//             final image = imageList[index];
+//             return InkWell(
+//               onTap: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                     builder: (_) => ImageScreen(imageFile: asset!.file),
+//                   ),
+//                 );
+//               },
+//               child: Stack(
+//                 children: <Widget>[
+//                   Positioned.fill(
+//                     child: Image.memory(
+//                       image!,
+//                       fit: BoxFit.cover,
+//                     ),
+//                   ),
+
+//                   //if文でビデオだったら、ビデオのアイコンを追加する
+//                   if (asset!.type == AssetType.video)
+//                     const Align(
+//                       alignment: Alignment.bottomRight,
+//                       child: Padding(
+//                         padding: EdgeInsets.only(right: 5, bottom: 5),
+//                         child: Icon(
+//                           Icons.videocam,
+//                           color: Colors.white,
+//                         ),
+//                       ),
+//                     ),
+//                 ],
+//               ),
+//             );
+//           }),
+//     );
+//   }
+// }
+
+class _PhotoSliverGridView extends StatefulWidget {
+  const _PhotoSliverGridView(
+      {Key? key, required this.assetList, required this.imageList})
+      : super(key: key);
+
+  final List<AssetEntity?> assetList;
+  final List<Uint8List?> imageList;
+  @override
+  State<_PhotoSliverGridView> createState() => __PhotoSliverGridViewState();
+}
+
+class __PhotoSliverGridViewState extends State<_PhotoSliverGridView> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // print("nnn");
+    // print(widget.assetList.length);
+    // print(widget.imageList.length);
+
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          if (widget.assetList.length == widget.imageList.length) {
+            final asset = widget.assetList[index];
+            final image = widget.imageList[index];
+            // if (asset.toString().isEmpty || image.toString().isEmpty) {
+            //   return const InkWell();
+            // }
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ImageScreen(imageFile: asset!.file),
+                  ),
+                );
+              },
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Image.memory(
+                      image!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+
+                  //if文でビデオだったら、ビデオのアイコンを追加する
+                  if (asset!.type == AssetType.video)
+                    const Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 5, bottom: 5),
+                        child: Icon(
+                          Icons.videocam,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            );
+          }
+        },
+        childCount: widget.imageList.length,
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+      ),
+    );
   }
 }
 
