@@ -59,7 +59,8 @@ class _SearchPageState extends State<SearchPage> {
                 //   title: _SearchTextField(controller: controller),
                 // ),
                 SliverToBoxAdapter(
-                  child: suggestionContainer(suggestionListView()),
+                  child: _SuggestionListView(
+                      controller: controller, searchTagList: searchTagList),
                 ),
                 searchListSliverGridView(),
 
@@ -122,70 +123,6 @@ class _SearchPageState extends State<SearchPage> {
     );
 
     setState(() {});
-  }
-
-  Widget suggestionContainer(Widget suggestionListView) {
-    //このif文がないと、Containerのborderが表示してしまう。
-    if (searchTagList.isNotEmpty) {
-      return Container(
-          margin: const EdgeInsets.only(
-            left: 8,
-            right: 8,
-            bottom: 8,
-          ),
-          decoration: BoxDecoration(
-            // color: Colors.grey.withOpacity(0.2),
-            border: Border.all(color: Colors.grey.withOpacity(0.3)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: suggestionListView);
-    } else {
-      return Container();
-    }
-  }
-
-  // Widget suggestionSilverListView() {
-  //   return SliverList(
-  //       delegate: SliverChildBuilderDelegate(
-  //     (BuildContext _, int index) {
-  //       return ListTile(
-  //         onTap: () {
-  //           controller.text = searchTagList[index].tagName + " ";
-  //           controller.selection = TextSelection.fromPosition(
-  //               TextPosition(offset: controller.text.length));
-  //         },
-  //         trailing: const Icon(
-  //           Icons.north_west,
-  //           color: Colors.grey,
-  //         ),
-  //         title: Text(searchTagList[index].tagName),
-  //         subtitle: Text(controller.text),
-  //       );
-  //     },
-  //     childCount: searchTagList.length,
-  //   ));
-  // }
-
-  Widget suggestionListView() {
-    return ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: searchTagList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              controller.text = searchTagList[index].tagName + " ";
-              controller.selection = TextSelection.fromPosition(
-                  TextPosition(offset: controller.text.length));
-            },
-            trailing: const Icon(
-              Icons.north_west,
-              color: Colors.grey,
-            ),
-            title: Text(searchTagList[index].tagName),
-            subtitle: Text(controller.text),
-          );
-        });
   }
 
   Widget searchListSliverGridView() {
@@ -312,90 +249,82 @@ class _SearchTextField extends StatelessWidget {
   }
 }
 
-// class _PhotoGridView extends StatefulWidget {
-//   const _PhotoGridView({Key? key, required this.assetList}) : super(key: key);
-//   final List<AssetEntity?> assetList;
+class _SuggestionListView extends StatelessWidget {
+  const _SuggestionListView(
+      {Key? key, required this.searchTagList, required this.controller})
+      : super(key: key);
+  final List<Tag> searchTagList;
+  final TextEditingController controller;
 
-//   @override
-//   State<_PhotoGridView> createState() => __PhotoGridViewState();
-// }
+  Widget suggestionContainer(Widget suggestionListView) {
+    //このif文がないと、Containerのborderが表示してしまう。
+    if (searchTagList.isNotEmpty) {
+      return Container(
+          margin: const EdgeInsets.only(
+            left: 8,
+            right: 8,
+            bottom: 8,
+          ),
+          decoration: BoxDecoration(
+            // color: Colors.grey.withOpacity(0.2),
+            border: Border.all(color: Colors.grey.withOpacity(0.3)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: suggestionListView);
+    } else {
+      return Container();
+    }
+  }
 
-// class __PhotoGridViewState extends State<_PhotoGridView> {
-//   List<Uint8List?> imageList = [];
-//   // List<AssetEntity?> assetList = [];
+  // Widget suggestionSilverListView() {
+  //   return SliverList(
+  //       delegate: SliverChildBuilderDelegate(
+  //     (BuildContext _, int index) {
+  //       return ListTile(
+  //         onTap: () {
+  //           controller.text = searchTagList[index].tagName + " ";
+  //           controller.selection = TextSelection.fromPosition(
+  //               TextPosition(offset: controller.text.length));
+  //         },
+  //         trailing: const Icon(
+  //           Icons.north_west,
+  //           color: Colors.grey,
+  //         ),
+  //         title: Text(searchTagList[index].tagName),
+  //         subtitle: Text(controller.text),
+  //       );
+  //     },
+  //     childCount: searchTagList.length,
+  //   ));
+  // }
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     Future(() async {
-//       await _imageFormat();
-//     });
-//   }
+  Widget suggestionListView() {
+    return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: searchTagList.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {
+              controller.text = searchTagList[index].tagName + " ";
+              controller.selection = TextSelection.fromPosition(
+                  TextPosition(offset: controller.text.length));
+            },
+            trailing: const Icon(
+              Icons.north_west,
+              color: Colors.grey,
+            ),
+            title: Text(searchTagList[index].tagName),
+            subtitle: Text(controller.text),
+          );
+        });
+  }
 
-//   _imageFormat() async {
-//     imageList = await Future.wait(
-//       widget.assetList.map((e) => e!.thumbDataWithSize(200, 200)).toList(),
-//     );
-
-//     setState(() {});
-//   }
-
-//   _handleScrollEvent(ScrollNotification scroll) {
-//     if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {}
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return NotificationListener<ScrollNotification>(
-//       onNotification: (ScrollNotification scroll) {
-//         _handleScrollEvent(scroll);
-//         return false;
-//       },
-//       child: GridView.builder(
-//           shrinkWrap: true,
-//           itemCount: imageList.length,
-//           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//               crossAxisCount: 3),
-//           itemBuilder: (BuildContext context, int index) {
-//             final asset = widget.assetList[index];
-//             final image = imageList[index];
-//             return InkWell(
-//               onTap: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (_) => ImageScreen(imageFile: asset!.file),
-//                   ),
-//                 );
-//               },
-//               child: Stack(
-//                 children: <Widget>[
-//                   Positioned.fill(
-//                     child: Image.memory(
-//                       image!,
-//                       fit: BoxFit.cover,
-//                     ),
-//                   ),
-
-//                   //if文でビデオだったら、ビデオのアイコンを追加する
-//                   if (asset!.type == AssetType.video)
-//                     const Align(
-//                       alignment: Alignment.bottomRight,
-//                       child: Padding(
-//                         padding: EdgeInsets.only(right: 5, bottom: 5),
-//                         child: Icon(
-//                           Icons.videocam,
-//                           color: Colors.white,
-//                         ),
-//                       ),
-//                     ),
-//                 ],
-//               ),
-//             );
-//           }),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return suggestionContainer(suggestionListView());
+  }
+}
 
 class _PhotoSliverGridView extends StatefulWidget {
   const _PhotoSliverGridView(
