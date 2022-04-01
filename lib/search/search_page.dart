@@ -50,18 +50,24 @@ class _SearchPageState extends State<SearchPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _SearchTextField(controller: controller),
+            // _SearchTextField(controller: controller),
             CustomScrollView(
               shrinkWrap: true,
               slivers: [
+                SliverToBoxAdapter(
+                  child: _SearchTextField(controller: controller),
+                ),
                 // SliverAppBar(
                 //   floating: true,
                 //   title: _SearchTextField(controller: controller),
                 // ),
                 SliverToBoxAdapter(
                   child: _SuggestionListView(
-                      controller: controller, searchTagList: searchTagList),
+                    controller: controller,
+                    searchTagList: searchTagList,
+                  ),
                 ),
+
                 searchListSliverGridView(),
 
                 _PhotoSliverGridView(
@@ -158,25 +164,25 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<List<AssetEntity?>> tagPhotoIdInMatch() async {
     if (searchTagList.isNotEmpty) {
-      List<String> matchPhotoIdList = [];
+      Set<String> matchPhotoIdList = {};
 
-      //自分の想像してた挙動と違うけど、動くからヨシ！！
-      //多分matchPhotoIdListとmatchedListも比較しなきゃいけない気がする
       Tag beforeSearchTag = searchTagList[0];
       for (int i = 1; i < searchTagList.length; i++) {
         Set<String> photoId = searchTagList[i].photoIdList.toSet();
         Set<String> beforePhotoId = beforeSearchTag.photoIdList.toSet();
+
         //互いのListに共通している要素をmatchedListに保存
         Set<String> matchedList = photoId.intersection(beforePhotoId);
 
-        matchPhotoIdList.addAll(matchedList);
+        matchPhotoIdList = matchedList.intersection(matchedList);
         beforeSearchTag = searchTagList[i];
       }
 
       // List<AssetEntity?> assetList = await Future.wait(
       //   matchPhotoIdList.map((e) => AssetEntity.fromId(e)),
       // );
-      List<AssetEntity?> assetList = await createAsset(matchPhotoIdList);
+      List<AssetEntity?> assetList =
+          await createAsset(matchPhotoIdList.toList());
 
       return assetList;
       // searchTagList.length
@@ -355,9 +361,7 @@ class __PhotoSliverGridViewState extends State<_PhotoSliverGridView> {
           if (widget.assetList.length == widget.imageList.length) {
             final asset = widget.assetList[index];
             final image = widget.imageList[index];
-            // if (asset.toString().isEmpty || image.toString().isEmpty) {
-            //   return const InkWell();
-            // }
+
             return InkWell(
               onTap: () {
                 Navigator.push(
