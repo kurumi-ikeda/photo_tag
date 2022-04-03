@@ -20,7 +20,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
   List<Tag> tags = Boxes.getTags().values.toList();
-  List<Tag> searchTagList = [];
+  Set<Tag> searchTagList = {};
   List<Uint8List?> imageList = [];
   List<AssetEntity?> assetList = [];
 
@@ -47,48 +47,90 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: const MainAppBar(),
       // CustomScrollView
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // _SearchTextField(controller: controller),
-            CustomScrollView(
-              shrinkWrap: true,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: _SearchTextField(controller: controller),
-                ),
-                // SliverAppBar(
-                //   floating: true,
-                //   title: _SearchTextField(controller: controller),
-                // ),
-                SliverToBoxAdapter(
-                  child: _SuggestionListView(
-                    controller: controller,
-                    searchTagList: searchTagList,
-                  ),
-                ),
+      body: CustomScrollView(
+        shrinkWrap: true,
+        slivers: [
+          SliverToBoxAdapter(
+            child: _SearchTextField(controller: controller),
+          ),
 
-                searchListSliverGridView(),
-
-                _PhotoSliverGridView(
-                  imageList: imageList,
-                  assetList: assetList,
-                ),
-
-                // SliverToBoxAdapter(
-                //   child: searchListGridView(),
-                // ),
-
-                // suggestionSilverListView(),
-              ],
+          // SliverAppBar(
+          //   floating: true,
+          //   title: _SearchTextField(controller: controller),
+          // ),
+          SliverToBoxAdapter(
+            child: _SuggestionListView(
+              controller: controller,
+              searchTagList: searchTagList.toList(),
             ),
-            // _PhotoGridView(assetList: assetList),
-            // suggestionContainer(suggestionListView()),
-            // searchListGridView(),
-          ],
-        ),
+          ),
+
+          searchListSliverGridView(),
+          // const SliverToBoxAdapter(
+          //   child: Text("このTag達に含まれている写真"),
+          // ),
+
+          _PhotoSliverGridView(
+            imageList: imageList,
+            assetList: assetList,
+          ),
+
+          // SliverToBoxAdapter(
+          //   child: searchListGridView(),
+          // ),
+
+          // suggestionSilverListView(),
+        ],
       ),
+      // _PhotoGridView(assetList: assetList),
+      // suggestionContainer(suggestionListView()),
+      // searchListGridView(),
     );
+    // return Scaffold(
+    //   appBar: const MainAppBar(),
+    //   // CustomScrollView
+    //   body: SingleChildScrollView(
+    //     child: Column(
+    //       children: [
+    //         // _SearchTextField(controller: controller),
+    //         CustomScrollView(
+    //           shrinkWrap: true,
+    //           slivers: [
+    //             SliverToBoxAdapter(
+    //               child: _SearchTextField(controller: controller),
+    //             ),
+    //             // SliverAppBar(
+    //             //   floating: true,
+    //             //   title: _SearchTextField(controller: controller),
+    //             // ),
+    //             SliverToBoxAdapter(
+    //               child: _SuggestionListView(
+    //                 controller: controller,
+    //                 searchTagList: searchTagList,
+    //               ),
+    //             ),
+
+    //             searchListSliverGridView(),
+
+    //             _PhotoSliverGridView(
+    //               imageList: imageList,
+    //               assetList: assetList,
+    //             ),
+
+    //             // SliverToBoxAdapter(
+    //             //   child: searchListGridView(),
+    //             // ),
+
+    //             // suggestionSilverListView(),
+    //           ],
+    //         ),
+    //         // _PhotoGridView(assetList: assetList),
+    //         // suggestionContainer(suggestionListView()),
+    //         // searchListGridView(),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
   void addListenerProcess() async {
@@ -106,7 +148,7 @@ class _SearchPageState extends State<SearchPage> {
       }
       //空白文字区切り
       List<String> splitSearchWords = controller.text.split(RegExp(r'\s'));
-      searchTagList = [];
+      searchTagList = {};
 
       if (controller.text.isNotEmpty) {
         for (String word in splitSearchWords) {
@@ -135,7 +177,7 @@ class _SearchPageState extends State<SearchPage> {
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          return TagWidget(tag: searchTagList[index]);
+          return TagWidget(tag: searchTagList.elementAt(index));
         },
         childCount: searchTagList.length,
       ),
@@ -166,16 +208,17 @@ class _SearchPageState extends State<SearchPage> {
     if (searchTagList.isNotEmpty) {
       Set<String> matchPhotoIdList = {};
 
-      Tag beforeSearchTag = searchTagList[0];
+      Tag beforeSearchTag = searchTagList.elementAt(0);
       for (int i = 1; i < searchTagList.length; i++) {
-        Set<String> photoId = searchTagList[i].photoIdList.toSet();
+        // Set<String> photoId = searchTagList[i].photoIdList.toSet();
+        Set<String> photoId = searchTagList.elementAt(i).photoIdList.toSet();
         Set<String> beforePhotoId = beforeSearchTag.photoIdList.toSet();
 
         //互いのListに共通している要素をmatchedListに保存
         Set<String> matchedList = photoId.intersection(beforePhotoId);
 
         matchPhotoIdList = matchedList.intersection(matchedList);
-        beforeSearchTag = searchTagList[i];
+        beforeSearchTag = searchTagList.elementAt(i);
       }
 
       // List<AssetEntity?> assetList = await Future.wait(
