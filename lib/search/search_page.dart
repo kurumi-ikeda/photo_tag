@@ -47,14 +47,13 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: const MainAppBar(),
       // CustomScrollView
-      body:
-          // _SearchTextField(controller: controller),
-          CustomScrollView(
+      body: CustomScrollView(
         shrinkWrap: true,
         slivers: [
           SliverToBoxAdapter(
             child: _SearchTextField(controller: controller),
           ),
+
           // SliverAppBar(
           //   floating: true,
           //   title: _SearchTextField(controller: controller),
@@ -67,6 +66,9 @@ class _SearchPageState extends State<SearchPage> {
           ),
 
           searchListSliverGridView(),
+          // const SliverToBoxAdapter(
+          //   child: Text("このTag達に含まれている写真"),
+          // ),
 
           _PhotoSliverGridView(
             imageList: imageList,
