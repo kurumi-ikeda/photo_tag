@@ -5,7 +5,7 @@ import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
 import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class SelectPhotoGridView extends StatefulWidget {
   const SelectPhotoGridView({Key? key, required this.tag}) : super(key: key);

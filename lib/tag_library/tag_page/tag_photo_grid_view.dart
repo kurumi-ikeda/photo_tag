@@ -86,6 +86,14 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
                           }
                         },
                       ),
+                      PopupMenuItem(
+                        child: const Text("このTagを削除"),
+                        onTap: () async {
+                          await Boxes.deleteTag(widget.tag);
+                          Navigator.pop(context);
+                          setState(() {});
+                        },
+                      ),
                     ]),
           ],
         ),
