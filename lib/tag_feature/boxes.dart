@@ -7,4 +7,8 @@ class Boxes {
   static Future<void> updateTag(Tag tag) async {
     await getTags().put(tag.key, tag);
   }
+
+  static deleteTag(Tag tag) async {
+    await Boxes.getTags().delete(tag.key);
+  }
 }
