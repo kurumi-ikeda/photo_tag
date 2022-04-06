@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/chewie_video_screen.dart';
 import 'package:flutter_application_photo_tag/main_app_bar.dart';
 
 import 'package:photo_manager/photo_manager.dart';
@@ -78,13 +79,19 @@ class _PhotoHomePageState extends State<PhotoHomePage> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    //写真をタップするとその写真を表示する
+
                     InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => ImageScreen(imageFile: asset.file),
+                            builder: (context) {
+                              if (asset.type == AssetType.image) {
+                                return ImageScreen(imageFile: asset.file);
+                              } else {
+                                return ChewieVideoScreen(videoFile: asset.file);
+                              }
+                            },
                           ),
                         );
                       },
