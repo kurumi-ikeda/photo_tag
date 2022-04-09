@@ -186,19 +186,6 @@ class _PhotoAsset extends StatelessWidget {
                     ),
                 ],
               ),
-
-              //if文でビデオだったら、ビデオのアイコンを追加する
-              if (asset.type == AssetType.video)
-                const Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 5, bottom: 5),
-                    child: Icon(
-                      Icons.videocam,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
             ],
           );
         }
