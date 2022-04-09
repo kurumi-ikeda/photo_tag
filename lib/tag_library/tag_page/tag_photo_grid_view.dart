@@ -8,7 +8,7 @@ import 'package:flutter_application_photo_tag/tag_library/tag_page/result_select
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
-import '../../image_screen.dart';
+import '../../photo_grid_component.dart';
 
 class TagPhotoGridView extends StatefulWidget {
   const TagPhotoGridView({Key? key, required this.tag}) : super(key: key);
@@ -109,39 +109,7 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
               itemBuilder: (BuildContext context, int index) {
                 final asset = assetList[index];
                 final image = imageList[index];
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ImageScreen(imageFile: asset!.file),
-                      ),
-                    );
-                  },
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: Image.memory(
-                          image!,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-
-                      //if文でビデオだったら、ビデオのアイコンを追加する
-                      if (asset!.type == AssetType.video)
-                        const Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 5, bottom: 5),
-                            child: Icon(
-                              Icons.videocam,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                );
+                return PhotoWidget(asset: asset, image: image);
               }),
         ));
   }
