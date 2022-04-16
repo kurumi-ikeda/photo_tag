@@ -1,8 +1,8 @@
-import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
-import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
-
 import 'package:photo_manager/photo_manager.dart';
 import 'package:uuid/uuid.dart';
+
+import 'boxes.dart';
+import 'tag.dart';
 
 /*
 作るべきメソッド

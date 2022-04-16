@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
-import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
+import 'package:flutter_application_photo_tag/model/tag_feature/boxes.dart';
+import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
+
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';

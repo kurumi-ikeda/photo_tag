@@ -3,8 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/main_app_bar.dart';
-import 'package:flutter_application_photo_tag/tag_feature/boxes.dart';
-import 'package:flutter_application_photo_tag/tag_feature/tag.dart';
+import 'package:flutter_application_photo_tag/model/tag_feature/boxes.dart';
+import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
+
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:photo_manager/photo_manager.dart';
 
