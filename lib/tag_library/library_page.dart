@@ -97,9 +97,12 @@ class TagCard extends StatelessWidget {
               ? Expanded(
                   child: FutureBuilder(
                     future: thumbnailCreation(tag),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<Uint8List?> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
+                    builder: (
+                      BuildContext context,
+                      AsyncSnapshot<Uint8List?> snapshot,
+                    ) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.data != null) {
                         return Container(
                           constraints: const BoxConstraints.expand(),
                           child: Image.memory(
@@ -108,7 +111,11 @@ class TagCard extends StatelessWidget {
                           ),
                         );
                       }
-                      return const Center();
+                      return Expanded(
+                        child: Container(
+                          color: const Color(0xFFc1c1c1),
+                        ),
+                      );
                     },
                   ),
                 )
@@ -135,8 +142,27 @@ class TagCard extends StatelessWidget {
 }
 
 Future<Uint8List?> thumbnailCreation(Tag tag) async {
-  String id = tag.photoIdList[0];
-  AssetEntity? asset = await AssetEntity.fromId(id);
-  var thumbnail = await asset!.thumbDataWithSize(200, 200);
+  Uint8List? thumbnail;
+  for (int i = 0; tag.photoIdList.length > i; i++) {
+    AssetEntity? asset = await AssetEntity.fromId(tag.photoIdList[i]);
+    if (asset == null) {
+      continue;
+    } else {
+      thumbnail = await asset.thumbDataWithSize(200, 200);
+    }
+  }
   return thumbnail;
 }
+
+// Map<bool, int> isDisplayableThumbnail(Tag tag) {
+// //   Map<String, String> frameworks = {
+// //  'Flutter' : 'Dart',
+// //  'Rails' : 'Ruby',
+// // };
+
+//   for (int i = 0; tag.photoIdList.length > i; i++) {}
+// // AssetEntity.
+
+//   Map<bool, int> result = {true: 0};
+//   return result;
+// }
