@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'select_photo/select_photo.dart';
+import '../select_photo/select_photo.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppBar({

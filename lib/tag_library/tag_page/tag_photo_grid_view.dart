@@ -9,7 +9,7 @@ import 'package:flutter_application_photo_tag/tag_library/tag_page/result_select
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
-import '../../photo_grid_component.dart';
+import '../../widget/photo_grid_component.dart';
 
 class TagPhotoGridView extends StatefulWidget {
   const TagPhotoGridView({Key? key, required this.tag}) : super(key: key);

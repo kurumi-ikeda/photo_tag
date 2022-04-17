@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/chewie_video_screen.dart';
-import 'package:flutter_application_photo_tag/main_app_bar.dart';
+import 'package:flutter_application_photo_tag/widget/chewie_video_screen.dart';
+import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
 
 import 'package:photo_manager/photo_manager.dart';
 
-import '../image_screen.dart';
+import '../widget/image_screen.dart';
 
 class PhotoHomePage extends StatefulWidget {
   const PhotoHomePage({Key? key}) : super(key: key);
