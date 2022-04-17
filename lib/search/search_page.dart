@@ -9,7 +9,7 @@ import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:photo_manager/photo_manager.dart';
 
-import '../widget/image_screen.dart';
+import '../widget/image_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -411,7 +411,7 @@ class __PhotoSliverGridViewState extends State<_PhotoSliverGridView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => ImageScreen(imageFile: asset!.file),
+                    builder: (_) => ImagePage(imageFile: asset!.file),
                   ),
                 );
               },

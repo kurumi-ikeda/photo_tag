@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 
-import 'chewie_video_screen.dart';
-import 'image_screen.dart';
+import 'chewie_video_page.dart';
+import 'image_page.dart';
 
 class PhotoWidget extends StatelessWidget {
   const PhotoWidget({Key? key, required this.asset, required this.image})
@@ -22,9 +22,9 @@ class PhotoWidget extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) {
               if (asset!.type == AssetType.image) {
-                return ImageScreen(imageFile: asset!.file);
+                return ImagePage(imageFile: asset!.file);
               } else {
-                return ChewieVideoScreen(videoFile: asset!.file);
+                return ChewieVideoPage(videoFile: asset!.file);
               }
             },
           ),
