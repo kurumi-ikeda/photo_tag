@@ -4,16 +4,15 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class ChewieVideoScreen extends StatefulWidget {
-  const ChewieVideoScreen({Key? key, required this.videoFile})
-      : super(key: key);
+class ChewieVideoPage extends StatefulWidget {
+  const ChewieVideoPage({Key? key, required this.videoFile}) : super(key: key);
   final Future<File?> videoFile;
 
   @override
-  State<ChewieVideoScreen> createState() => _ChewieVideoScreenState();
+  State<ChewieVideoPage> createState() => _ChewieVideoPageState();
 }
 
-class _ChewieVideoScreenState extends State<ChewieVideoScreen> {
+class _ChewieVideoPageState extends State<ChewieVideoPage> {
   bool initialized = false;
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;

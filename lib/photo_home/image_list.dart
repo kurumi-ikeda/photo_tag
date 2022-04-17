@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/widget/chewie_video_screen.dart';
+import 'package:flutter_application_photo_tag/widget/chewie_video_page.dart';
 import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
 
 import 'package:photo_manager/photo_manager.dart';
 
-import '../widget/image_screen.dart';
+import '../widget/image_page.dart';
 
 class PhotoHomePage extends StatefulWidget {
   const PhotoHomePage({Key? key}) : super(key: key);
@@ -87,9 +87,9 @@ class _PhotoHomePageState extends State<PhotoHomePage> {
                           MaterialPageRoute(
                             builder: (context) {
                               if (asset.type == AssetType.image) {
-                                return ImageScreen(imageFile: asset.file);
+                                return ImagePage(imageFile: asset.file);
                               } else {
-                                return ChewieVideoScreen(videoFile: asset.file);
+                                return ChewieVideoPage(videoFile: asset.file);
                               }
                             },
                           ),

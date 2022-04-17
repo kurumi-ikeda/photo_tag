@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ImageScreen extends StatelessWidget {
-  const ImageScreen({
+class ImagePage extends StatelessWidget {
+  const ImagePage({
     Key? key,
     required this.imageFile,
   }) : super(key: key);
