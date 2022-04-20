@@ -29,6 +29,7 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
     super.initState();
     Future(() async {
       await createAsset();
+      assetList.removeWhere((asset) => asset == null);
       await _imageFormat();
     });
   }
@@ -39,6 +40,7 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
     );
   }
 
+  nullCheckAssetRecord() {}
   _imageFormat() async {
     imageList = await Future.wait(
       assetList.map((e) => e!.thumbDataWithSize(200, 200)).toList(),
