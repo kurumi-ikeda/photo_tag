@@ -111,10 +111,8 @@ class TagCard extends StatelessWidget {
                           ),
                         );
                       }
-                      return Expanded(
-                        child: Container(
-                          color: const Color(0xFFc1c1c1),
-                        ),
+                      return Container(
+                        color: const Color(0xFFc1c1c1),
                       );
                     },
                   ),
