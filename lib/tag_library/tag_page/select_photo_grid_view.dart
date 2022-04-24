@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/boxes.dart';
+import 'package:flutter_application_photo_tag/model/boxes.dart';
 import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';

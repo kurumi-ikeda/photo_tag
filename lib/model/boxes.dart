@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import 'tag.dart';
+import 'tag_feature/tag.dart';
 
 class Boxes {
   static Box<Tag> getTags() => Hive.box<Tag>('tags');
