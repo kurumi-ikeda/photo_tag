@@ -35,12 +35,15 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
   }
 
   createAsset() async {
-    assetList = await Future.wait(
-      widget.tag.photoIdList.map((e) => AssetEntity.fromId(e)),
-    );
+    assetList = await Future.wait(widget.tag.photoIdList.map((photoId) async {
+      AssetEntity? asset = await AssetEntity.fromId(photoId);
+
+      return asset;
+    }));
   }
 
   nullCheckAssetRecord() {}
+
   _imageFormat() async {
     imageList = await Future.wait(
       assetList.map((e) => e!.thumbDataWithSize(200, 200)).toList(),
