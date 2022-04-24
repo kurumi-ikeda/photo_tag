@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/boxes.dart';
+import 'package:flutter_application_photo_tag/model/boxes.dart';
 import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
 import 'package:flutter_application_photo_tag/model/tag_feature/tag_create.dart';
 

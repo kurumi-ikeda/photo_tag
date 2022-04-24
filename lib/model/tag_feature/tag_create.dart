@@ -1,7 +1,7 @@
 import 'package:photo_manager/photo_manager.dart';
 import 'package:uuid/uuid.dart';
 
-import 'boxes.dart';
+import '../boxes.dart';
 import 'tag.dart';
 
 /*

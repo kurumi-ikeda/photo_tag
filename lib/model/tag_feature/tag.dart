@@ -12,7 +12,6 @@ class Tag {
   late String tagName;
 
   @HiveField(2)
-
   late List<String> photoIdList = [];
 
   @override
@@ -23,7 +22,4 @@ class Tag {
         "idCount: " +
         photoIdList.length.toString();
   }
-
-
-
 }
