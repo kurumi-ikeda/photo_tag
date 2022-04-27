@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/model/boxes.dart';
+import 'package:flutter_application_photo_tag/model/deleted_tag_photo_id/deleted_photo_id.dart';
 import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
@@ -37,12 +38,13 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
   createAsset() async {
     assetList = await Future.wait(widget.tag.photoIdList.map((photoId) async {
       AssetEntity? asset = await AssetEntity.fromId(photoId);
+      if (asset == null) {
+        DeletedPhotoId.nullRecordPhotoId(photoId);
+      }
 
       return asset;
     }));
   }
-
-  nullCheckAssetRecord() {}
 
   _imageFormat() async {
     imageList = await Future.wait(

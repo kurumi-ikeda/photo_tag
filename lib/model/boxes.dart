@@ -1,3 +1,4 @@
+import 'package:flutter_application_photo_tag/model/deleted_tag_photo_id/deleted_photo_id.dart';
 import 'package:hive/hive.dart';
 
 import 'tag_feature/tag.dart';
@@ -12,4 +13,7 @@ class Boxes {
   static deleteTag(Tag tag) async {
     await Boxes.getTags().delete(tag.key);
   }
+
+  static Box<DeletedPhotoId> getDeletedPhotoIds() =>
+      Hive.box<DeletedPhotoId>('deletedPhotoIds');
 }
