@@ -5,6 +5,7 @@ import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'model/deleted_tag_photo_id/deleted_photo_id.dart';
 import 'model/tag_feature/tag.dart';
 import 'photo_home/image_list.dart';
 import 'search/search_page.dart';
@@ -14,6 +15,8 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TagAdapter());
   await Hive.openBox<Tag>('tags');
+  Hive.registerAdapter(DeletedPhotoIdAdapter());
+  await Hive.openBox<DeletedPhotoId>('deletedPhotoIds');
   runApp(
     MultiProvider(
       providers: [
