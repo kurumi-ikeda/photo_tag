@@ -13,7 +13,4 @@ class Boxes {
   static deleteTag(Tag tag) async {
     await Boxes.getTags().delete(tag.key);
   }
-
-  static Box<DeletedPhotoId> getDeletedPhotoIds() =>
-      Hive.box<DeletedPhotoId>('deletedPhotoIds');
 }

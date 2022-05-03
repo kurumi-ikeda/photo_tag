@@ -19,7 +19,7 @@ class Tag {
     return "tagName: " +
         tagName +
         " " +
-        "idCount: " +
+        "idsCount: " +
         photoIdList.length.toString();
   }
 }
