@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/model/boxes.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
+
+import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
+import 'package:flutter_application_photo_tag/model/tag/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
 import 'package:hive/hive.dart';
@@ -28,7 +29,7 @@ class _TagLibraryPageState extends State<TagLibraryPage> {
           title: const Text('タグライブラリー'),
         ),
         body: ValueListenableBuilder<Box<Tag>>(
-          valueListenable: Boxes.getTags().listenable(),
+          valueListenable: BoxTag().getTags().listenable(),
           builder: (context, box, _) {
             final tags = box.values.toList();
             return ImageWithTagGridView(tags: tags);

@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'model/deleted_tag_photo_id/deleted_photo_id.dart';
-import 'model/tag_feature/tag.dart';
+import 'model/tag/tag.dart';
 import 'photo_home/image_list.dart';
 import 'search/search_page.dart';
 import 'tag_library/tag_page/result_selection_provider.dart';

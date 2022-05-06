@@ -2,10 +2,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/model/boxes.dart';
+
 import 'package:flutter_application_photo_tag/model/deleted_tag_photo_id/box_deleted_photo_id.dart';
-import 'package:flutter_application_photo_tag/model/deleted_tag_photo_id/deleted_photo_id.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
+
+import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
+import 'package:flutter_application_photo_tag/model/tag/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
@@ -89,8 +90,9 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
                           );
                           if (text?.isNotEmpty == true) {
                             widget.tag.tagName = text!;
+                            BoxTag().updateTag(widget.tag);
 
-                            await Boxes.updateTag(widget.tag);
+                            // await Boxes.updateTag(widget.tag);
                             setState(() {});
                           }
                         },
@@ -98,7 +100,7 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
                       PopupMenuItem(
                         child: const Text("このTagを削除"),
                         onTap: () async {
-                          await Boxes.deleteTag(widget.tag);
+                          await BoxTag().deleteTag(widget.tag);
                           Navigator.pop(context);
                           setState(() {});
                         },

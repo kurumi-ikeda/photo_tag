@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/model/boxes.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
+
+import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
+import 'package:flutter_application_photo_tag/model/tag/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -99,7 +100,8 @@ class _SelectPhotoGridViewState extends State<SelectPhotoGridView> {
                             final photoIdList =
                                 assetList.map((e) => e!.id).toList();
                             widget.tag.photoIdList = photoIdList;
-                            Boxes.updateTag(widget.tag);
+                            BoxTag().updateTag(widget.tag);
+                            // Boxes.updateTag(widget.tag);
                             setState(() {});
                           },
                         ),

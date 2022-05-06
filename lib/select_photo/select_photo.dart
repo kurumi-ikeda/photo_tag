@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_photo_tag/model/boxes.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/tag_create.dart';
+
+import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
+import 'package:flutter_application_photo_tag/model/tag/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:hive/hive.dart';
@@ -93,7 +93,7 @@ class _SelectPhotoState extends State<SelectPhoto> {
     print(selectedList.length);
 
     return ValueListenableBuilder<Box<Tag>>(
-        valueListenable: Boxes.getTags().listenable(),
+        valueListenable: BoxTag().getTags().listenable(),
         builder: (context, box, _) {
           final tags = box.values.toList();
           return Scaffold(
@@ -249,7 +249,7 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
     if (tagName == "" || selectedList.isEmpty) {
       return;
     } else {
-      TagCreate().saveTag(selectedList, tagName);
+      BoxTag().createTag(selectedList, tagName);
     }
   }
 
@@ -329,7 +329,8 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
                   tags[index].photoIdList.addAll(resultSelectedIdList);
 
                   //変更内容を保存
-                  Boxes.updateTag(tags[index]);
+                  // Boxes.updateTag(tags[index]);
+                  BoxTag().updateTag(tags[index]);
                   print(tags[index].photoIdList.length);
 
                   Navigator.of(context).pop();
