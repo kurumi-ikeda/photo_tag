@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
 import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
-import 'package:flutter_application_photo_tag/model/boxes.dart';
-import 'package:flutter_application_photo_tag/model/tag_feature/tag.dart';
+import 'package:flutter_application_photo_tag/model/tag/tag.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -20,7 +20,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
-  List<Tag> tags = Boxes.getTags().values.toList();
+  List<Tag> tags = BoxTag().getTags().values.toList();
   Set<Tag> searchTagList = {};
   List<Uint8List?> imageList = [];
   List<AssetEntity?> assetList = [];
