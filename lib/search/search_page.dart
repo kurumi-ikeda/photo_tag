@@ -170,7 +170,6 @@ class _SearchPageState extends State<SearchPage> {
     imageList = await Future.wait(
       assetList.map((e) => e!.thumbDataWithSize(200, 200)).toList(),
     );
-
     setState(() {});
   }
 

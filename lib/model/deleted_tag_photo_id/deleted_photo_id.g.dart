@@ -18,17 +18,20 @@ class DeletedPhotoIdAdapter extends TypeAdapter<DeletedPhotoId> {
     };
     return DeletedPhotoId(
       photoId: fields[10] as String,
-      deletedTime: fields[11] as DateTime,
+      deletedTime: fields[12] as DateTime,
+      uuid: fields[11] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, DeletedPhotoId obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(10)
       ..write(obj.photoId)
       ..writeByte(11)
+      ..write(obj.uuid)
+      ..writeByte(12)
       ..write(obj.deletedTime);
   }
 
