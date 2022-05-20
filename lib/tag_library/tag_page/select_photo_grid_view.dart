@@ -32,6 +32,7 @@ class _SelectPhotoGridViewState extends State<SelectPhotoGridView> {
     super.initState();
     Future(() async {
       await createAsset();
+      assetList.removeWhere((asset) => asset == null);
       await _imageFormat();
     });
   }
