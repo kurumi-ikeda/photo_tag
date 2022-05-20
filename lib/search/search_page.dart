@@ -137,6 +137,8 @@ class _SearchPageState extends State<SearchPage> {
   void addListenerProcess() async {
     searchWordContains();
     assetList = await tagPhotoIdInMatch();
+    assetList.removeWhere((asset) => asset == null);
+
     if (assetList.isNotEmpty) {
       await _imageFormat();
     }
