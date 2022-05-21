@@ -43,22 +43,14 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print(assetList.toString() + "aaa");
-    // print("imageList" + imageList.toString());
     return Scaffold(
       appBar: const MainAppBar(),
-      // CustomScrollView
       body: CustomScrollView(
         shrinkWrap: true,
         slivers: [
           SliverToBoxAdapter(
             child: _SearchTextField(controller: controller),
           ),
-
-          // SliverAppBar(
-          //   floating: true,
-          //   title: _SearchTextField(controller: controller),
-          // ),
           SliverToBoxAdapter(
             child: _SuggestionListView(
               controller: controller,
@@ -75,63 +67,9 @@ class _SearchPageState extends State<SearchPage> {
             imageList: imageList,
             assetList: assetList,
           ),
-
-          // SliverToBoxAdapter(
-          //   child: searchListGridView(),
-          // ),
-
-          // suggestionSilverListView(),
         ],
       ),
-      // _PhotoGridView(assetList: assetList),
-      // suggestionContainer(suggestionListView()),
-      // searchListGridView(),
     );
-    // return Scaffold(
-    //   appBar: const MainAppBar(),
-    //   // CustomScrollView
-    //   body: SingleChildScrollView(
-    //     child: Column(
-    //       children: [
-    //         // _SearchTextField(controller: controller),
-    //         CustomScrollView(
-    //           shrinkWrap: true,
-    //           slivers: [
-    //             SliverToBoxAdapter(
-    //               child: _SearchTextField(controller: controller),
-    //             ),
-    //             // SliverAppBar(
-    //             //   floating: true,
-    //             //   title: _SearchTextField(controller: controller),
-    //             // ),
-    //             SliverToBoxAdapter(
-    //               child: _SuggestionListView(
-    //                 controller: controller,
-    //                 searchTagList: searchTagList,
-    //               ),
-    //             ),
-
-    //             searchListSliverGridView(),
-
-    //             _PhotoSliverGridView(
-    //               imageList: imageList,
-    //               assetList: assetList,
-    //             ),
-
-    //             // SliverToBoxAdapter(
-    //             //   child: searchListGridView(),
-    //             // ),
-
-    //             // suggestionSilverListView(),
-    //           ],
-    //         ),
-    //         // _PhotoGridView(assetList: assetList),
-    //         // suggestionContainer(suggestionListView()),
-    //         // searchListGridView(),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 
   void addListenerProcess() async {
@@ -191,21 +129,6 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  // Widget searchListGridView() {
-  //   return GridView.builder(
-  //       shrinkWrap: true,
-  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //         crossAxisCount: 2,
-  //         crossAxisSpacing: 20.0, // 縦スペース
-  //         mainAxisSpacing: 20.0, //横スペース
-  //       ),
-  //       padding: const EdgeInsets.all(4),
-  //       itemCount: searchTagList.length,
-  //       itemBuilder: (context, index) {
-  //         return TagWidget(tag: searchTagList[index]);
-  //       });
-  // }
-
   Future<List<AssetEntity?>> tagPhotoIdInMatch() async {
     if (searchTagList.isNotEmpty) {
       Set<String> matchPhotoIdList = {};
@@ -230,7 +153,6 @@ class _SearchPageState extends State<SearchPage> {
           await createAsset(matchPhotoIdList.toList());
 
       return assetList;
-      // searchTagList.length
     } else {
       List<AssetEntity?> emptyList = [];
       return emptyList;
@@ -246,8 +168,6 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class _SearchTextField extends StatelessWidget {
-  //   final Tag tag;
-  // const TagCard({Key? key, required this.tag}) : super(key: key);
   final TextEditingController controller;
 
   const _SearchTextField({Key? key, required this.controller})
@@ -327,28 +247,6 @@ class _SuggestionListView extends StatelessWidget {
     }
   }
 
-  // Widget suggestionSilverListView() {
-  //   return SliverList(
-  //       delegate: SliverChildBuilderDelegate(
-  //     (BuildContext _, int index) {
-  //       return ListTile(
-  //         onTap: () {
-  //           controller.text = searchTagList[index].tagName + " ";
-  //           controller.selection = TextSelection.fromPosition(
-  //               TextPosition(offset: controller.text.length));
-  //         },
-  //         trailing: const Icon(
-  //           Icons.north_west,
-  //           color: Colors.grey,
-  //         ),
-  //         title: Text(searchTagList[index].tagName),
-  //         subtitle: Text(controller.text),
-  //       );
-  //     },
-  //     childCount: searchTagList.length,
-  //   ));
-  // }
-
   Widget suggestionListView() {
     return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
@@ -396,10 +294,6 @@ class __PhotoSliverGridViewState extends State<_PhotoSliverGridView> {
 
   @override
   Widget build(BuildContext context) {
-    // print("nnn");
-    // print(widget.assetList.length);
-    // print(widget.imageList.length);
-
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
@@ -450,94 +344,3 @@ class __PhotoSliverGridViewState extends State<_PhotoSliverGridView> {
     );
   }
 }
-
-// slivers: <Widget>[
-//         //新規作成用のSliverGrid
-//         SliverGrid(
-//           delegate: SliverChildBuilderDelegate(
-//             //ここ別にBuildContext使わなくてよくね？と思いつつ時間がないので、一旦このままにします。
-//             (BuildContext _, int __) {
-//               return InkWell(
-//                   onTap: () async {
-//                     final result = await showDialog<String>(
-//                       context: context,
-//                       builder: (context) {
-//                         return const _InputDialog();
-//                       },
-//                     );
-
-//                     if (result == null || selectedList.isEmpty) {
-//                       return;
-//                     }
-
-//                     tagCreate(selectedList, result);
-//                     Navigator.of(context).popUntil((route) => route.isFirst);
-//                   },
-//                   child: Card(
-//                     clipBehavior: Clip.antiAlias,
-//                     child: Column(
-//                       children: [
-//                         Expanded(
-//                           child: Container(
-//                             color: const Color(0xFFc1c1c1),
-//                           ),
-//                         ),
-//                         const ListTile(
-//                           visualDensity:
-//                               VisualDensity(horizontal: 0, vertical: -4),
-//                           contentPadding:
-//                               EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-//                           title: Text("新規作成"),
-//                           minLeadingWidth: 40,
-//                         ),
-//                       ],
-//                     ),
-//                   ));
-//             },
-//             childCount: 1,
-//           ),
-//           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 2,
-//             crossAxisSpacing: 20.0, // 縦スペース
-//             mainAxisSpacing: 20.0, //横スペース
-//           ),
-//         ),
-//         //すでにあるTagに追加する用
-//         SliverGrid(
-//           delegate: SliverChildBuilderDelegate(
-//             (BuildContext context, int index) {
-//               return InkWell(
-//                 onTap: () {
-//                   List<String> resultSelectedIdList = [];
-
-//                   print(tags[index].photoIdList.length);
-
-//                   List<String> selectedIdList =
-//                       selectedList.map((e) => e.id).toList();
-//                   for (String id in selectedIdList) {
-//                     if (!tags[index].photoIdList.contains(id)) {
-//                       resultSelectedIdList.add(id);
-//                     }
-//                   }
-
-//                   //tagに選択した写真のidを追加
-//                   tags[index].photoIdList.addAll(resultSelectedIdList);
-
-//                   //変更内容を保存
-//                   Boxes.updateTag(tags[index]);
-//                   print(tags[index].photoIdList.length);
-
-//                   Navigator.of(context).pop();
-//                 },
-//                 child: TagCard(tag: tags[index]),
-//               );
-//             },
-//             childCount: tags.length,
-//           ),
-//           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 2,
-//             crossAxisSpacing: 20.0, // 縦スペース
-//             mainAxisSpacing: 20.0, //横スペース
-//           ),
-//         ),
-//       ],
