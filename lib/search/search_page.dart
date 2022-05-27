@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
+import 'package:flutter_application_photo_tag/search/search_word.dart';
 import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
 import 'package:flutter_application_photo_tag/model/tag/tag.dart';
 
@@ -20,7 +21,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
-  List<Tag> tags = BoxTag().getTags().values.toList();
+  final List<Tag> tags = BoxTag().getTags().values.toList();
   Set<Tag> searchTagList = {};
   List<Uint8List?> imageList = [];
   List<AssetEntity?> assetList = [];
@@ -73,37 +74,15 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void addListenerProcess() async {
-    searchWordContains();
+    setState(() {
+      searchTagList = SearchWord().searchWordContains(controller, tags);
+    });
     assetList = await tagPhotoIdInMatch();
     assetList.removeWhere((asset) => asset == null);
 
     if (assetList.isNotEmpty) {
       await _imageFormat();
     }
-  }
-
-  void searchWordContains() {
-    setState(() {
-      if (controller.text.isEmpty) {
-        return;
-      }
-      //空白文字区切り
-      List<String> splitSearchWords = controller.text.split(RegExp(r'\s'));
-      searchTagList = {};
-
-      if (controller.text.isNotEmpty) {
-        for (String word in splitSearchWords) {
-          for (int i = 0; i < tags.length; i++) {
-            if (tags[i].tagName.contains(word) && word.isNotEmpty) {
-              searchTagList.add(tags[i]);
-            }
-            // if (tags[i].tagName.contains(controller.text)) {
-            //   searchTagList.add(tags[i]);
-            // }
-          }
-        }
-      }
-    });
   }
 
   _imageFormat() async {
@@ -253,19 +232,27 @@ class _SuggestionListView extends StatelessWidget {
         shrinkWrap: true,
         itemCount: searchTagList.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              controller.text = searchTagList[index].tagName + " ";
-              controller.selection = TextSelection.fromPosition(
-                  TextPosition(offset: controller.text.length));
-            },
-            trailing: const Icon(
-              Icons.north_west,
-              color: Colors.grey,
-            ),
-            title: Text(searchTagList[index].tagName),
-            subtitle: Text(controller.text),
-          );
+          if (controller.text
+              .split(RegExp(r'\s'))
+              .map((e) => e.contains(searchTagList[index].tagName))
+              .toList()
+              .contains(true)) {
+            return Container();
+          } else {
+            return ListTile(
+              onTap: () {
+                controller.text = searchTagList[index].tagName + " ";
+                controller.selection = TextSelection.fromPosition(
+                    TextPosition(offset: controller.text.length));
+              },
+              trailing: const Icon(
+                Icons.north_west,
+                color: Colors.grey,
+              ),
+              title: Text(searchTagList[index].tagName),
+              subtitle: Text(controller.text),
+            );
+          }
         });
   }
 
