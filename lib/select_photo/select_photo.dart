@@ -262,6 +262,7 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
           delegate: SliverChildBuilderDelegate(
             //ここ別にBuildContext使わなくてよくね？と思いつつ時間がないので、一旦このままにします。
             (BuildContext _, int __) {
+              //新規作成のwidget
               return InkWell(
                   onTap: () async {
                     final result = await showDialog<String>(
@@ -319,6 +320,7 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
 
                   List<String> selectedIdList =
                       selectedList.map((e) => e.id).toList();
+
                   for (String id in selectedIdList) {
                     if (!tags[index].photoIdList.contains(id)) {
                       resultSelectedIdList.add(id);
@@ -333,7 +335,8 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
                   BoxTag().updateTag(tags[index]);
                   print(tags[index].photoIdList.length);
 
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 child: TagCard(tag: tags[index]),
               );
