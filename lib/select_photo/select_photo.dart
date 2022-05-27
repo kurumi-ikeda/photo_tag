@@ -246,11 +246,7 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
   final List<Tag> tags;
 
   tagCreate(List<AssetEntity> selectedList, String tagName) {
-    if (tagName == "" || selectedList.isEmpty) {
-      return;
-    } else {
-      BoxTag().createTag(selectedList, tagName);
-    }
+    BoxTag().createTag(selectedList, tagName);
   }
 
   @override
@@ -272,7 +268,11 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
                       },
                     );
 
-                    if (result == null || selectedList.isEmpty) {
+                    // if (result == null || selectedList.isEmpty) {
+                    //   return;
+                    // }
+
+                    if (result == null || result.isEmpty) {
                       return;
                     }
 
