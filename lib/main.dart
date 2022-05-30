@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Photo Tag',
       theme: ThemeData(
         // This is the theme of your application.
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const MyHomePage(),
     );
