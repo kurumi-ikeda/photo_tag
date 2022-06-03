@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_application_photo_tag">
+    package="kurumi.photo_tag">
    <application
         android:label="PhotoTag"
         android:icon="@mipmap/ic_launcher">

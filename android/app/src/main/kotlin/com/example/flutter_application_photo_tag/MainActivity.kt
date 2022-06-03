@@ -1,4 +1,4 @@
-package com.example.flutter_application_photo_tag
+package kurumi.photo_tag
 
 import io.flutter.embedding.android.FlutterActivity
 
