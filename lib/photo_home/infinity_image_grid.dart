@@ -1,0 +1,159 @@
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/widget/chewie_video_page.dart';
+import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
+
+import 'package:photo_manager/photo_manager.dart';
+
+import '../widget/image_page.dart';
+
+class InfinityImageGrid extends StatefulWidget {
+  const InfinityImageGrid({Key? key}) : super(key: key);
+
+  @override
+  _InfinityImageGridState createState() => _InfinityImageGridState();
+}
+
+class _InfinityImageGridState extends State<InfinityImageGrid> {
+  //写真一つ一つを読み込みための変数
+  final List<Widget> _mediaList = [];
+  late final List<AssetPathEntity> albums;
+
+  int currentPage = 0;
+  late int lastPage;
+
+  final int loadLength = 30;
+
+  int _lastIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  Future<void> init() async {
+    await fetchAllPhoto();
+    await fetchNewMedia();
+  }
+
+  //写真全体を追加
+  Future<void> fetchAllPhoto() async {
+    var result = await PhotoManager.requestPermission();
+    if (result) {
+      albums = await PhotoManager.getAssetPathList(onlyAll: true);
+    } else {
+      PhotoManager.openSetting();
+    }
+
+    setState(() {});
+  }
+
+  //スクロールをしてる処理？
+  _handleScrollEvent(ScrollNotification scroll) {
+    if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {
+      if (currentPage != lastPage) {
+        fetchNewMedia();
+      }
+    }
+  }
+
+  fetchNewMedia() async {
+    lastPage = currentPage;
+    var result = await PhotoManager.requestPermission();
+    if (result) {
+      List<AssetEntity> media =
+          await albums[0].getAssetListPaged(currentPage, 100);
+      // print(media);
+
+      List<Widget> temp = [];
+
+      for (AssetEntity asset in media) {
+        temp.add(_ImageView(asset: asset));
+      }
+
+      setState(() {
+        _mediaList.addAll(temp);
+        currentPage++;
+      });
+    } else {
+      PhotoManager.openSetting();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: const MainAppBar(),
+        body: NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification scroll) {
+              _handleScrollEvent(scroll);
+              return false;
+            },
+            child: GridView.builder(
+                itemCount: _mediaList.length,
+                //写真を一列に何枚ずつ置くか決める
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemBuilder: (BuildContext context, int index) {
+                  return _mediaList[index];
+                })));
+  }
+}
+
+class _ImageView extends StatelessWidget {
+  final AssetEntity asset;
+  const _ImageView({Key? key, required this.asset}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Uint8List?>(
+      future: asset.thumbDataWithSize(200, 200),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Image.memory(
+                  snapshot.data!,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        if (asset.type == AssetType.image) {
+                          return ImagePage(imageFile: asset.file);
+                        } else {
+                          return ChewieVideoPage(videoFile: asset.file);
+                        }
+                      },
+                    ),
+                  );
+                },
+              ),
+
+              //if文でビデオだったら、ビデオのアイコンを追加する
+              if (asset.type == AssetType.video)
+                const Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 5, bottom: 5),
+                    child: Icon(
+                      Icons.videocam,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+            ],
+          );
+        }
+        return Container();
+      },
+    );
+  }
+}
