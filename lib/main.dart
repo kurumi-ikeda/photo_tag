@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_photo_tag/photo_home/infinity_image_grid.dart';
 
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
 
@@ -59,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var _navIndex = 0;
 
   final _navWidget = [
-    const PhotoHomePage(),
+    const InfinityImageScrollPage(),
     const TagLibraryPage(),
     const SearchPage(),
   ];

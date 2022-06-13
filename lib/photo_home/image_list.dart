@@ -17,16 +17,15 @@ class PhotoHomePage extends StatefulWidget {
 class _PhotoHomePageState extends State<PhotoHomePage> {
   //写真一つ一つを読み込みための変数
   final List<Widget> _mediaList = [];
-  List<AssetPathEntity> albums = [];
+  late final List<AssetPathEntity> albums;
 
-  // final selectedImageList = <AssetPathEntity>[];
   int currentPage = 0;
   late int lastPage;
 
   @override
   void initState() {
-    super.initState();
     init();
+    super.initState();
   }
 
   Future<void> init() async {
@@ -65,7 +64,7 @@ class _PhotoHomePageState extends State<PhotoHomePage> {
 
       List<Widget> temp = [];
 
-      for (var asset in media) {
+      for (AssetEntity asset in media) {
         temp.add(
           FutureBuilder<Uint8List?>(
             future: asset.thumbDataWithSize(200, 200),
