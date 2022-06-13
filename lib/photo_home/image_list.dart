@@ -18,14 +18,14 @@ class _PhotoHomePageState extends State<PhotoHomePage> {
   //写真一つ一つを読み込みための変数
   final List<Widget> _mediaList = [];
   late final List<AssetPathEntity> albums;
-  
+
   int currentPage = 0;
   late int lastPage;
 
   @override
   void initState() {
-    super.initState();
     init();
+    super.initState();
   }
 
   Future<void> init() async {
