@@ -2,6 +2,11 @@
 
 ## アプリ名:フォトタグ(PhotoTag)
 
+<p>
+  <img src="https://user-images.githubusercontent.com/65322807/173543137-91391a1c-9b91-41bd-9d61-305f541b54e1.png" width="30%">
+  <img src="https://user-images.githubusercontent.com/65322807/173543580-6f992457-37e6-46aa-bca1-e5a9be96e101.png" width="30%">
+</p>
+
 - ### なぜつくるのか
 
   ios の｢写真｣アプリで不便な点があるので、そこの部分を改良したいから。
@@ -13,6 +18,10 @@
 - ### アピールポイント
 
   タグ同士で AND 検索を出来るようにした所。
+
+  <img src="https://user-images.githubusercontent.com/65322807/173569182-ade4b92f-f495-49ce-a414-08d553ad9a9c.gif" width="20%">
+
+  <!-- ![and](https://user-images.githubusercontent.com/65322807/173569182-ade4b92f-f495-49ce-a414-08d553ad9a9c.gif) -->
 
 - ### プライバシーポリシー
   https://kurumi-ikeda.github.io/PhotoTagPrivacyPolicy/
