@@ -15,7 +15,7 @@
   タグ同士で AND 検索を出来るようにした所。
 
 - ### プライバシーポリシー
-  https://mirai110.github.io/PhotoTagPrivacyPolicy/
+  https://kurumi-ikeda.github.io/PhotoTagPrivacyPolicy/
 
 # 2, 使用技術
 
