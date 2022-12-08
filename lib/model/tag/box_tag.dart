@@ -16,11 +16,6 @@ class BoxTag {
     Tag tag = Tag(key: key, photoIdList: photoIdList, tagName: tagName);
     // keyを指定して保存
     await _boxTag.put(key, tag);
-    //デバック用
-    // for (var tag in box.values.toList()) {
-    //   print('tag name: ${tag.tagName}');
-    //   print('photoIdList: ${tag.photoIdList}');
-    // }
   }
 
   Future<void> updateTag(Tag tag) async {

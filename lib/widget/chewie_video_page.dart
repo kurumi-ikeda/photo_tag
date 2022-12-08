@@ -32,11 +32,6 @@ class _ChewieVideoPageState extends State<ChewieVideoPage> {
     setState(() {
       initialized = true;
     });
-
-    // Play the video again when it ends
-    // ..setLooping(true)
-    // // initialize the controller and notify UI when done
-    // ..initialize().then((_) => setState(() => initialized = true));
   }
 
   _initChewie() {
@@ -45,9 +40,6 @@ class _ChewieVideoPageState extends State<ChewieVideoPage> {
       aspectRatio: 3 / 2,
       autoPlay: false,
       looping: false,
-      // Try playing around with some of these other options:
-
-      //showControls: false,
       materialProgressColors: ChewieProgressColors(
         playedColor: Colors.red,
         handleColor: Colors.blue,

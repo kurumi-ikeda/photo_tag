@@ -1,8 +1,8 @@
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/widget/chewie_video_page.dart';
 import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
-
 import 'package:photo_manager/photo_manager.dart';
 
 import '../widget/image_page.dart';
@@ -60,7 +60,6 @@ class _PhotoHomePageState extends State<PhotoHomePage> {
     if (result) {
       List<AssetEntity> media =
           await albums[0].getAssetListPaged(currentPage, 100);
-      // print(media);
 
       List<Widget> temp = [];
 

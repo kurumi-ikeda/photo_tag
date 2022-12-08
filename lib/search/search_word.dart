@@ -21,22 +21,13 @@ class SearchWord {
       final Set<Tag> setTag = {};
       return setTag;
     }
-
     for (String word in splitSearchWords) {
       for (int i = 0; i < tags.length; i++) {
-        // if (searchTagList.map((e) => e.tagName).toList().contains(word)) {
-
-        // }
         if (tags[i].tagName.contains(word) && word.isNotEmpty) {
           searchTagList.add(tags[i]);
         }
-
-        // if (tags[i].tagName.contains(controller.text)) {
-        //   searchTagList.add(tags[i]);
-        // }
       }
     }
-
     return searchTagList;
   }
 }

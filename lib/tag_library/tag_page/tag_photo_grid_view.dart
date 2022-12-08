@@ -88,8 +88,6 @@ class _TagPhotoGridViewState extends State<TagPhotoGridView> {
                           if (text?.isNotEmpty == true) {
                             widget.tag.tagName = text!;
                             BoxTag().updateTag(widget.tag);
-
-                            // await Boxes.updateTag(widget.tag);
                             setState(() {});
                           }
                         },

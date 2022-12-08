@@ -56,12 +56,7 @@ class _SearchPageState extends State<SearchPage> {
               searchTagList: searchTagList.toList(),
             ),
           ),
-
           searchListSliverGridView(),
-          // const SliverToBoxAdapter(
-          //   child: Text("このTag達に含まれている写真"),
-          // ),
-
           _PhotoSliverGridView(
             imageList: imageList,
             assetList: assetList,
@@ -112,7 +107,6 @@ class _SearchPageState extends State<SearchPage> {
 
       Tag beforeSearchTag = searchTagList.elementAt(0);
       for (int i = 1; i < searchTagList.length; i++) {
-        // Set<String> photoId = searchTagList[i].photoIdList.toSet();
         Set<String> photoId = searchTagList.elementAt(i).photoIdList.toSet();
         Set<String> beforePhotoId = beforeSearchTag.photoIdList.toSet();
 
@@ -122,13 +116,8 @@ class _SearchPageState extends State<SearchPage> {
         matchPhotoIdList = matchedList.intersection(matchedList);
         beforeSearchTag = searchTagList.elementAt(i);
       }
-
-      // List<AssetEntity?> assetList = await Future.wait(
-      //   matchPhotoIdList.map((e) => AssetEntity.fromId(e)),
-      // );
       List<AssetEntity?> assetList =
           await createAsset(matchPhotoIdList.toList());
-
       return assetList;
     } else {
       List<AssetEntity?> emptyList = [];
@@ -156,11 +145,9 @@ class _SearchTextField extends StatelessWidget {
         top: 8,
         left: 8,
         right: 8,
-        // bottom: 8,
       ),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.2),
-        // border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(10),
       ),
       child: textField,
@@ -170,9 +157,7 @@ class _SearchTextField extends StatelessWidget {
   TextField searchTextField() {
     return TextField(
       controller: controller,
-      // autofocus: true,
       style: const TextStyle(
-        //テキストのスタイル
         color: Colors.black,
         fontSize: 20,
       ),
@@ -214,7 +199,6 @@ class _SuggestionListView extends StatelessWidget {
             bottom: 8,
           ),
           decoration: BoxDecoration(
-            // color: Colors.grey.withOpacity(0.2),
             border: Border.all(color: Colors.grey.withOpacity(0.3)),
             borderRadius: BorderRadius.circular(10),
           ),
