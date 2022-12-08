@@ -54,11 +54,8 @@ class _InfinityImageScrollPageState extends State<InfinityImageScrollPage> {
   }
 
   Future<void> _getAssets() async {
-    print(albums[0].assetCount.toString() + "aaa");
     List<AssetEntity> _getAssetList = await albums[0]
         .getAssetListRange(start: _lastIndex, end: _lastIndex + loadLength);
-    // await albums[0].getAssetListPaged(_lastIndex, loadLength);
-    // await albums[0].getAssetListPaged(60, 30);
     for (AssetEntity asset in _getAssetList) {
       _assetList.add(asset);
     }
@@ -216,7 +213,6 @@ class _InfinityImageGridState extends State<InfinityImageGrid> {
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) {
-          print(index);
           return _ImageView(asset: widget.assetList[index]);
         });
   }

@@ -1,13 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
-import 'package:flutter_application_photo_tag/search/search_word.dart';
-import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
 import 'package:flutter_application_photo_tag/model/tag/tag.dart';
-
+import 'package:flutter_application_photo_tag/search/search_word.dart';
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
+import 'package:flutter_application_photo_tag/widget/main_app_bar.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 import '../widget/image_page.dart';
@@ -322,6 +320,7 @@ class __PhotoSliverGridViewState extends State<_PhotoSliverGridView> {
               ),
             );
           }
+          return null;
         },
         childCount: widget.imageList.length,
       ),

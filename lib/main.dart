@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/photo_home/infinity_image_grid.dart';
-
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
-
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'model/deleted_tag_photo_id/deleted_photo_id.dart';
 import 'model/tag/tag.dart';
-import 'photo_home/image_list.dart';
 import 'search/search_page.dart';
 import 'tag_library/tag_page/result_selection_provider.dart';
 
@@ -32,14 +29,11 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Photo Tag',
       theme: ThemeData(
-        // This is the theme of your application.
         primarySwatch: Colors.blueGrey,
       ),
       home: const MyHomePage(),

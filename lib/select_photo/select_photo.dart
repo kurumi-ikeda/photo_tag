@@ -1,13 +1,10 @@
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
 import 'package:flutter_application_photo_tag/model/tag/tag.dart';
-
 import 'package:flutter_application_photo_tag/tag_library/library_page.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:photo_manager/photo_manager.dart';
 
 class SelectPhoto extends StatefulWidget {
@@ -90,8 +87,6 @@ class _SelectPhotoState extends State<SelectPhoto> {
 
   @override
   Widget build(BuildContext context) {
-    print(selectedList.length);
-
     return ValueListenableBuilder<Box<Tag>>(
         valueListenable: BoxTag().getTags().listenable(),
         builder: (context, box, _) {
@@ -316,8 +311,6 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
                 onTap: () {
                   List<String> resultSelectedIdList = [];
 
-                  print(tags[index].photoIdList.length);
-
                   List<String> selectedIdList =
                       selectedList.map((e) => e.id).toList();
 
@@ -331,11 +324,8 @@ class _SelectPhotoCustomScrollView extends StatelessWidget {
                   tags[index].photoIdList.addAll(resultSelectedIdList);
 
                   //変更内容を保存
-                  // Boxes.updateTag(tags[index]);
                   BoxTag().updateTag(tags[index]);
-                  print(tags[index].photoIdList.length);
 
-                  // Navigator.of(context).pop();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 child: TagCard(tag: tags[index]),

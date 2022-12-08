@@ -1,17 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_application_photo_tag/model/deleted_tag_photo_id/box_deleted_photo_id.dart';
-
 import 'package:flutter_application_photo_tag/model/tag/box_tag.dart';
 import 'package:flutter_application_photo_tag/model/tag/tag.dart';
-
 import 'package:flutter_application_photo_tag/tag_library/tag_page/result_selection_provider.dart';
 import 'package:flutter_application_photo_tag/tag_library/tag_page/tag_page.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
+
 import '../../widget/photo_grid_component.dart';
 
 class TagPhotoGridView extends StatefulWidget {
